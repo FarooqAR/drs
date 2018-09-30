@@ -1,0 +1,11 @@
+a {
+  color: #00B7FF;
+}
+
+.text_centered{
+  text-align: center;
+}
+
+header a.navbar-brand > span {
+  margin-left: 10px;
+}

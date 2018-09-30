@@ -1,0 +1,39 @@
+extends common/layout
+
+block style_links
+  link(rel='stylesheet', href='/stylesheets/login.css')
+
+block content
+  //- {typeF} is same as {type} but with first letter capitalized 
+  -var typeF = type.slice(0, 1).toUpperCase() + type.slice(1)
+  
+  div#login_form_container
+    h2.text_centered Login as a #{typeF}
+    form(action="/login/" + type, method="get")
+      div
+        input#input_id(
+          type="text" 
+          class="form-control"
+          name="id" 
+          placeholder=typeF+ " Id")
+      div
+        input#input_password(
+          type="password"
+          class="form-control" 
+          name="password" 
+          placeholder="Password")
+      div.text_centered
+        input(
+          type="submit", 
+          value="Login"
+          class="btn btn-primary")
+    div.text_centered New #{type}? 
+      a(href='/signup/' + type) Signup!
+    div.text_centered Or
+    div.text_centered Login as a 
+      if type == "user"
+        a(href="/login/doctor")  Doctor
+      else
+        a(href="/login/user")  User  
+
+          
