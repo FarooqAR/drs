@@ -6,7 +6,6 @@ block style_links
 block content
   //- {typeF} is same as {type} but with first letter capitalized 
   -var typeF = type.slice(0, 1).toUpperCase() + type.slice(1)
-  
   div#login_form_container
     h2.text_centered Login as a #{typeF}
     form(action="/login/" + type, method="get")

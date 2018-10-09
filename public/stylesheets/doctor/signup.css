@@ -1,0 +1,9 @@
+#signup_form_container{
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+#signup_form_container form > div{
+    margin : 15px 0;
+}
