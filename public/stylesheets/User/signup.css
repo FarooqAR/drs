@@ -1,0 +1,11 @@
+#signup_container{
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+#signup_container form > div{
+    margin: 15px 0;
+}
+#text_small{
+    font-size: 1vw;
+}

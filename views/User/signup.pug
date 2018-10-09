@@ -1,0 +1,57 @@
+extends ../common/layout
+
+block style_links
+  link(rel='stylesheet', href='/stylesheets/User/signup.css')
+
+block content
+    -var typeF = type.slice(0, 1).toUpperCase() + type.slice(1)
+
+    div#signup_container
+        h2.text_centered Sign Up as a #{typeF}
+        form(action="/signup/" + type, method="get")
+            div
+                input#input_name(
+                    type="text" 
+                    class="form-control"
+                    name="Fname" 
+                    placeholder="First Name")
+            div
+                input#input_name(
+                    type="text" 
+                    class="form-control"
+                    name="Fname" 
+                    placeholder="Last Name")
+            div
+                h6 Enter Username:
+                input(
+                    type="text" 
+                    class="form-control"
+                    name="Fname" 
+                    placeholder="person123")
+            div
+                h6 Enter Password:
+                input#input_pw(
+                    type="text" 
+                    class="form-control"
+                    name="Fname" 
+                    placeholder="Must be six characters long")
+            div
+                h6 Confirm Password:
+                input#input_pw(
+                    type="text" 
+                    class="form-control"
+                    name="Fname" 
+                    placeholder="Confirm Password")
+            div
+                h6 Where do you live?
+                iframe(src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d924244.0619641689!2d66.59499551729773!3d25.192146526892635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33e06651d4bbf%3A0x9cf92f44555a0c23!2sKarachi%2C+Karachi+City%2C+Sindh!5e0!3m2!1sen!2s!4v1538828387631", width="300" frameborder="0")
+            div.text_centered
+                    input#input_pw(
+                    type="submit" 
+                    class="btn btn-primary"
+                    value="Sign Up")
+            div.text_centered Old User? 
+                a(href="/login/user")   Login
+
+
+                        
