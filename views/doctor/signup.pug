@@ -1,0 +1,56 @@
+extends ../common/layout
+
+block style_links
+  link(rel='stylesheet', href='/stylesheets/doctor/signup.css')
+
+block content
+  //- {typeF} is same as {type} but with first letter capitalized 
+  -var typeF = type.slice(0, 1).toUpperCase() + type.slice(1)
+  div#signup_form_container
+    h2.text_centered Sign Up as a #{typeF}
+    form(action="/signup/" + type, method="get")
+      div
+        input#input_fname(
+          type="text" 
+          class="form-control"
+          name="fname" 
+          placeholder="First Name ")
+      div
+        input#input_lname(
+          type="text" 
+          class="form-control"
+          name="lname" 
+          placeholder="Last Name ")
+      div
+        input#input_username(
+        type="text" 
+        class="form-control"
+        name="username" 
+        placeholder="Username ")   
+      div
+        input#input_password(
+          type="password"
+          class="form-control" 
+          name="password" 
+          placeholder="Password")
+      div
+        input#confirm_password(
+          type="password"
+          class="form-control" 
+          name="cpassword" 
+          placeholder="Confirm Password")    
+      div.text_centered
+        input(
+          type="submit", 
+          value="Sign Up"
+          class="btn btn-primary")
+    div.text_centered Already signed up as a #{type}? 
+      a(href='/login/' + type) Login!
+    div.text_centered Or
+    div.text_centered Sign Up as a 
+      if type == "doctor"
+        a(href="/signup/user")  User
+      else
+        a(href="/signup/doctor")  Doctor
+
+          
