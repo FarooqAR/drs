@@ -1,11 +1,43 @@
+h1,h2,h3,h4,h5
+{
+  font-weight: 400;
+}
 a {
   color: #00B7FF;
 }
-
+.hide {
+  display: none;
+}
 .text_centered{
   text-align: center;
 }
 
 header a.navbar-brand > span {
   margin-left: 10px;
+}
+
+.container_300{
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.container_flex {
+  display: flex;
+}
+.container_flex.items_centered
+{
+  align-items: center;
+}
+.container_flex > .flex_1 {
+  flex: 1; 
+}
+.container_flex > .flex_2 {
+  flex: 2; 
+}
+.container_flex > .flex_3 {
+  flex: 3; 
+}
+.underlined{
+  text-decoration: underline;
 }

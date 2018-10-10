@@ -5,6 +5,8 @@ var path = require('path');
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var signupRouter = require('./routes/signup');
+var settingsRouter = require('./routes/settings');
+
 var app = express();  
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -14,19 +16,9 @@ app.use(express.json()); // parser for JSON data
 app.use(express.urlencoded({ extended: false })); 
 app.use(express.static(path.join(__dirname, 'public')));
 
-/* the order of {app.use, app.get, app.post} calls matters.
-for example, if we have:
-
-app.use('/login', indexRouter);
-app.use('/login', loginRouter);
-
-In the above code, Only {indexRouter} will be used for handling requests at "/login", and the
-second handler for the same route will be ignored. 
-*/
-// handle all incoming GET/POST requests at http://localhost:3000/
 app.use('/', indexRouter);
-// handle all incoming GET/POST requests at http://localhost:3000/login
 app.use('/login', loginRouter);
+app.use('/settings', settingsRouter);
 
 app.use('/signup', signupRouter);
 

@@ -1,0 +1,137 @@
+extends ../common/layout
+
+block style_links
+  link(rel='stylesheet', href='/stylesheets/doctor/settings.css')
+
+block scripts
+  script(src="/javascripts/doctor/settings.js")
+
+block content
+  div#settings_container
+    if firstTimer
+      h2.text_centered Welcome #{fullName}!
+      h3.text_centered Set up your profile to get started!    
+    else  
+      h3.text_centered Profile Settings
+
+    div.container
+      include ../common/alert.pug
+      div.qualifications_container
+        h4 Add Qualifications
+        form#form_qualification
+          div.container_flex.items_centered
+            input.flex_3(
+                type="text" 
+                class="form-control"
+                name="qualification[]"
+                placeholder="Institute/College/University")
+            input.flex_2(
+                type="text" 
+                class="form-control"
+                name="qualification[]" 
+                placeholder="Degree")    
+            select.flex_1(
+                class="form-control"
+                name="qualification[]") 
+              - var year = 1960;
+              option(value="-1", disabled) Select Year 
+              while year < 2018
+                -year++
+                option(value=year) #{year}
+            input(
+                type="submit" 
+                class="btn btn-primary" 
+                value="Add")  
+        div.qualifications_list
+          
+          for qualification in qualifications
+            -const id = qualification[0];
+            -const college = qualification[1];
+            -const degree = qualification[2];
+            -const year = qualification[3];
+            div.qualification.container_flex.text_centered.items_centered
+              div.qualification_college.flex_1 #{college} 
+              div.qualification_degree.flex_1 #{degree} 
+              div.qualification_year.flex_1 #{year} 
+              div.controls.flex_1 
+                button.btn.btn_edit_qualification(
+                  onclick='editQualification(' + id + ')') Edit
+                //- add one space
+                span     
+                button.btn.btn-danger.btn_delete_qualification(
+                  onclick='deleteQualification(' + id + ')') Delete
+              
+      //- all clinics go inside this container
+      div.clinics_container
+        h4 Add Clinics/Hospitals        
+        div.container_flex.clinic_1
+          span.num_clinic 1.
+          div.flex_1
+            div.container_flex
+              input.flex_3(
+                  type="text" 
+                  class="form-control"
+                  name="clinic_1_name" 
+                  placeholder="Add from existing clinics/hospitals")
+              select.flex_2(
+                  type="text" 
+                  class="form-control"
+                  name="clinic_1_role")
+                option(value="-1", disabled) Select Role
+                each role in roles
+                  option(value=role) #{role}    
+            
+            h5 Add Timings  
+            //- timings for each clinic
+            div.container_flex.items_centered
+              select.flex_1(
+                  class="form-control"
+                  name="timing_1_day")
+                option(value="-1", disabled) Select Day  
+                each day in days
+                  option(value=day) #{day}
+
+              div.input-group.mb-3.flex_1
+                div.input-group-prepend
+                  span.input-group-text From
+                input(
+                  type="time", 
+                  name="timing_1_time_from"
+                  class="form-control"
+                  placeholder="From")  
+
+              div.input-group.mb-3.flex_1
+                div.input-group-prepend
+                  span.input-group-text To
+                input(
+                  type="time", 
+                  name="timing_1_time_to"
+                  class="form-control"
+                  placeholder="To") 
+              
+              input(
+                type="button", 
+                value="Add"
+                class="btn btn-primary")    
+
+            
+            input(
+              type="button", 
+              value="Add Clinic"
+              class="btn btn_add_clinic btn-primary")  
+
+      div.profile_photo_container
+        h4 Add your cute photo
+        div
+          div
+            img(
+              src="/images/doctor_placeholder.png",
+              alt="doctor_photo")
+          div.custom-file
+            input#file-input.custom-file-input(type='file')
+            label.custom-file-label(for='file-input') Select Image
+          div
+            input(
+              type="button" 
+              class="btn btn_upload_image btn-primary" 
+              value="Upload")   
