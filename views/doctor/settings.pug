@@ -15,9 +15,9 @@ block content
       h3.text_centered Profile Settings
 
     div.container
-      include ../common/alert.pug
       div.qualifications_container
         h4 Add Qualifications
+        include ../common/alert.pug
         form#form_qualification
           div.container_flex.items_centered
             input.flex_3(
@@ -54,71 +54,104 @@ block content
               div.qualification_degree.flex_1 #{degree} 
               div.qualification_year.flex_1 #{year} 
               div.controls.flex_1 
-                button.btn.btn_edit_qualification(
-                  onclick='editQualification(' + id + ')') Edit
-                //- add one space
-                span     
                 button.btn.btn-danger.btn_delete_qualification(
                   onclick='deleteQualification(' + id + ')') Delete
               
       //- all clinics go inside this container
       div.clinics_container
-        h4 Add Clinics/Hospitals        
-        div.container_flex.clinic_1
-          span.num_clinic 1.
-          div.flex_1
-            div.container_flex
-              input.flex_3(
-                  type="text" 
-                  class="form-control"
-                  name="clinic_1_name" 
-                  placeholder="Add from existing clinics/hospitals")
-              select.flex_2(
-                  type="text" 
-                  class="form-control"
-                  name="clinic_1_role")
-                option(value="-1", disabled) Select Role
-                each role in roles
-                  option(value=role) #{role}    
-            
-            h5 Add Timings  
-            //- timings for each clinic
-            div.container_flex.items_centered
-              select.flex_1(
-                  class="form-control"
-                  name="timing_1_day")
-                option(value="-1", disabled) Select Day  
-                each day in days
-                  option(value=day) #{day}
+        h4 Add Clinics/Hospitals  
+        include ../common/alert.pug
+        form#form_clinic      
+          div.container_flex
+            div.flex_1
+              div.container_flex
+                input.flex_3(
+                  list='all_clinics_list', 
+                  class="form-control",
+                  name="clinic_name", 
+                  placeholder="Add from existing clinics/hospitals" )
+                datalist#all_clinics_list
+                  for clinic in all_clinics
+                    option(value=clinic[1]) 
+                select.flex_2(
+                    type="text" 
+                    class="form-control"
+                    name="clinic_role")
+                  option(value="-1", disabled) Select Role
+                  each role in roles
+                    option(value=role) #{role}    
+              
+              h5 Add Timings  
+              div.current_clinic_timings_list
+              //- timings for each clinic
+              div.container_flex.items_centered
+                select#timing_day.flex_1(
+                    class="form-control"
+                    name="timing_day")
+                  option(value="-1", disabled) Select Day  
+                  each day in days
+                    option(value=day) #{day}
 
-              div.input-group.mb-3.flex_1
-                div.input-group-prepend
-                  span.input-group-text From
-                input(
-                  type="time", 
-                  name="timing_1_time_from"
-                  class="form-control"
-                  placeholder="From")  
+                div.input-group.mb-3.flex_1
+                  div.input-group-prepend
+                    span.input-group-text From
+                  input#timing_time_from(
+                    type="time", 
+                    name="timing_time_from"
+                    class="form-control"
+                    placeholder="From")  
 
-              div.input-group.mb-3.flex_1
-                div.input-group-prepend
-                  span.input-group-text To
+                div.input-group.mb-3.flex_1
+                  div.input-group-prepend
+                    span.input-group-text To
+                  input#timing_time_to(
+                    type="time", 
+                    name="timing_time_to"
+                    class="form-control"
+                    placeholder="To") 
+                
                 input(
-                  type="time", 
-                  name="timing_1_time_to"
-                  class="form-control"
-                  placeholder="To") 
+                  type="button", 
+                  onclick="addClinicTiming()"
+                  value="Add"
+                  class="btn btn-primary")    
+              div.clinics_list
+                for clinic in clinics
+                  div.clinic
+                    div.container_flex
+                      div.flex_3
+                        div 
+                          strong Clinic/Hospital: 
+                          span #{clinic[1]} 
+                        div 
+                          strong Role: 
+                          span #{clinic[2]}
+                      div.flex_1.text_right
+                        input(
+                          type="button"
+                          onclick="deleteClinic(" + clinic[0] + ")"
+                          class="btn btn-danger"
+                          value="Delete") 
+
+                    div 
+                      strong Timings: 
+                    for timing in clinic[3]
+                      div.container_flex.clinic_timing_item.items_centered
+                        div.flex_1 #{timing[1]}
+                        div.flex_3.text_centered #{timing[2]} to #{timing[3]}
+                        div.flex_1.text_right
+                          input(
+                            type="button"
+                            class="btn"
+                            onclick="removeClinicTiming(" + clinic[0] + "," + timing[0] + ")"
+                            value!="&times;")
+                    
+
               
               input(
-                type="button", 
-                value="Add"
-                class="btn btn-primary")    
-
-            
-            input(
-              type="button", 
-              value="Add Clinic"
-              class="btn btn_add_clinic btn-primary")  
+                type="submit", 
+                value="Add Clinic"
+                class="btn btn-primary")  
 
       div.profile_photo_container
         h4 Add your cute photo

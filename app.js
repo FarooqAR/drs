@@ -5,7 +5,7 @@ var path = require('path');
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var signupRouter = require('./routes/signup');
-var settingsRouter = require('./routes/settings');
+var doctorSettingsRouter = require('./routes/doctor/settings');
 
 var app = express();  
 // view engine setup
@@ -18,9 +18,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
-app.use('/settings', settingsRouter);
-
 app.use('/signup', signupRouter);
+// we wont use /doctor/settings as our route since
+// once the user or doctor has logged in, he/she should be
+// able to see settings at /settings and not at /doctor/settings (which doesnt make sense)
+app.use('/settings', doctorSettingsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
