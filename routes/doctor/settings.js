@@ -2,13 +2,53 @@
 
 const express = require('express');
 const router = express.Router();
+// dummy roles 
 const roles = [
   'General Physician',
   'Surgeon',
   'Dentist',
   'Eye Specialist'
 ];
-// dummy qualifications...  
+// dummy colleges 
+const colleges = [
+  ['0', 'King Edward Medical College'],
+  ['1', 'Nishtar Medical College'],
+  ['2', 'Fatima Jinnah Medical College'],
+  ['3', 'Army Medical College'],
+  ['4', 'Allama Iqbal Medical College'],
+  ['5', 'Punjab Medical College'],
+  ['6', 'Quaid-e-Azam Medical College'],
+  ['7', 'Rawalpindi Medical College'],
+  ['8', 'Sargodha Medical College'],
+  ['9', 'Shaikh Zayed Medical College'],
+  ['10', 'Nawaz Sharif Medical College'],
+  ['11', 'Federal Medical & Dental College'],
+  ['12', 'Gujranwala Medical College'],
+  ['13', 'D.G. Khan Medical College'],
+  ['14', 'Lahore Medical & Dental College'],
+  ['15', 'Shifa College of Medicine'],
+  ['16', 'Liaquat National Medical College']
+];
+// dummy degrees
+const degrees = [
+  ['0', 'Anaesthesiology'],
+  ['1', 'Audiology'],
+  ['2', 'Cardiovascular Sciences'],
+  ['3', 'Clinical Micro Biology'],
+  ['4', 'Dental Hygienist'],
+  ['5', 'Dentistry'],
+  ['6', 'Diagnostic Radiology'],
+  ['7', 'Dermatology'],
+  ['8', 'Food Sciences & Human Nutrition'],
+  ['9', 'Forensic Studies'],
+  ['10', 'Ophthalmology'],
+  ['11', 'General Nursing'],
+  ['12', 'Molecular Pathology'],
+  ['13', 'Neuro Sciences'],
+  ['14', 'Occupational Therapy'],
+  ['15', 'Orthopedics'],
+] 
+// dummy qualifications  
 const qualifications = [
   // [id, college, degree, year],
   ["0", "HabibUni", "CS", "1998"],
@@ -47,7 +87,7 @@ router.get('/', function (req, res, next) {
   renderView(res, {
     fullName: 'Farooq AR',
     firstTimer: true,
-    qualifications
+    
   });
 });
 
@@ -131,6 +171,9 @@ function renderView(res, config) {
   config.roles = roles;
   config.all_clinics = allClinics;
   config.clinics = doctorClinics;
+  config.colleges = colleges;
+  config.qualifications = qualifications;
+  config.degrees = degrees;
   config.days = [
     'Monday',
     'Tuesday',
