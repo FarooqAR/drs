@@ -1,0 +1,16 @@
+#appoint_details_container{
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+#appoint_details_container .further_details {
+  width: 272px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+#appoint_details_container .controls {
+  text-align: right;
+}
+#appoint_details_container .controls .btn{
+  margin: 0 3px;
+}

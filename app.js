@@ -7,6 +7,7 @@ var loginRouter = require('./routes/login');
 var signupRouter = require('./routes/signup');
 var doctorSettingsRouter = require('./routes/doctor/settings');
 var doctorDashboardRouter = require('./routes/doctor/dashboard');
+var doctorAppointmentsRouter = require('./routes/doctor/appointments');
 
 var app = express();  
 // view engine setup
@@ -24,6 +25,7 @@ app.use('/signup', signupRouter);
 // once the user or doctor has logged in, he/she should be
 // able to see settings at /settings and not at /doctor/settings (which doesnt make sense)
 app.use('/settings', doctorSettingsRouter);
+app.use('/appointments', doctorAppointmentsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

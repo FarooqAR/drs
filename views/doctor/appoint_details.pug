@@ -1,0 +1,47 @@
+extends ../common/layout
+
+block style_links
+  link(rel='stylesheet', href='/stylesheets/doctor/appoint_details.css')
+
+block content
+  div#appoint_details_container
+    table.table.table-bordered.table-dark
+      thead
+        tr
+          th(colspan="2") Appointment Details
+      - const id = appointment[0]; 
+      - const name = appointment[1]; 
+      - const created_at = appointment[2]; 
+      - const day = appointment[3]; 
+      - const from = appointment[4]; 
+      - const to = appointment[5]; 
+      - const status = appointment[6]; 
+      - const description = appointment[7];    
+      tbody
+        tr
+          td ID
+          td #{id}
+        tr
+          td Name
+          td #{name}
+        tr
+          td Created At
+          td #{created_at}
+        tr
+          td Day
+          td #{day} 
+        tr
+          td Time
+          td 
+            span #{from} 
+            strong to  
+            span #{to} 
+        tr
+          td Details
+          td 
+            div.further_details #{description} 
+    div.controls
+      button.btn.btn-danger Reject
+      button.btn.btn-danger Cancel 
+      button.btn.btn-primary Accept
+      button.btn.btn-success Done
