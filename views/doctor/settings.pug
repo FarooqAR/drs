@@ -20,16 +20,25 @@ block content
         include ../common/alert.pug
         form#form_qualification
           div.container_flex.items_centered
+            //- this points to the datalist#colleges_list
             input.flex_3(
+                list="colleges_list" 
                 type="text" 
                 class="form-control"
                 name="qualification[]"
                 placeholder="Institute/College/University")
+            datalist#colleges_list
+                  for college in colleges
+                    option(value=college[1]) 
             input.flex_2(
+                list="degrees_list" 
                 type="text" 
                 class="form-control"
                 name="qualification[]" 
-                placeholder="Degree")    
+                placeholder="Degree")  
+            datalist#degrees_list
+                  for degree in degrees
+                    option(value=degree[1])       
             select.flex_1(
                 class="form-control"
                 name="qualification[]") 
@@ -61,10 +70,12 @@ block content
       div.clinics_container
         h4 Add Clinics/Hospitals  
         include ../common/alert.pug
+        //- add clinic form
         form#form_clinic      
           div.container_flex
             div.flex_1
               div.container_flex
+                //- clinic name
                 input.flex_3(
                   list='all_clinics_list', 
                   class="form-control",
@@ -73,6 +84,7 @@ block content
                 datalist#all_clinics_list
                   for clinic in all_clinics
                     option(value=clinic[1]) 
+                //- role in clinic    
                 select.flex_2(
                     type="text" 
                     class="form-control"
@@ -144,10 +156,8 @@ block content
                             type="button"
                             class="btn"
                             onclick="removeClinicTiming(" + clinic[0] + "," + timing[0] + ")"
-                            value!="&times;")
-                    
+                            value!="&times;")               
 
-              
               input(
                 type="submit", 
                 value="Add Clinic"
