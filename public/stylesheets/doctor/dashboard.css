@@ -1,0 +1,62 @@
+#doc_main_container
+{
+    margin: 40px;
+}
+#clinics_list
+{
+    margin-top: 20px;
+    float: left;
+    width: 300px;
+}
+#history_btn
+{
+    float: right;
+    margin-top: 20px;
+}
+#appointment_heading
+{
+    margin-top: 90px;
+}
+#appointments_body
+{
+    display: block;
+}
+.appointments_list
+{
+    margin: 0px;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    height: 250px;
+    width: 95%;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.appointments_list#current
+{
+    height: 150px;
+}
+#appointment_info
+{
+    height: 200px;
+}
+.appointment_buttons
+{
+    float: right;
+    margin-left: 10px;
+}
+.appointments_list .row
+{
+    height: 50px;
+    padding: 6px;
+}
+.appointments_list .row:hover
+{
+    background-color: lightgray;
+}
+div h5
+{
+    text-align: center;
+}

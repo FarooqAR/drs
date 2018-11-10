@@ -1,0 +1,100 @@
+extends ../common/layout
+
+block style_links
+  link(rel='stylesheet', href='/stylesheets/doctor/dashboard.css')
+  link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+
+block scripts
+  script(src="/javascripts/doctor/dashboard.js")
+
+block content
+    div#doc_main_container
+        h2 Dr. #{fullName}
+        hr
+        include ../common/alert.pug
+        form#select_cinic
+            div.container.all_appointments_container
+                input#clinics_list(
+                    list='doctor_clinics_list', 
+                    class="form-control",
+                    name="clinic_name", 
+                    placeholder="Clinics/Hospitals" )
+                datalist#doctor_clinics_list
+                    for clinic in clinics
+                        option(value=clinic[1]) #{appointment}
+                input#history_btn(
+                    type='submit'
+                    class='btn btn-primary'
+                    value='Filter' )
+        div#appointments_body
+            div#appointment_heading
+                h4 Appointment Requests (new):
+                .appointments_list.appointments_new
+                    for app in appointments
+                        if (app[6] == 'new')
+                            .row
+                                .col-sm-1 # #{app[0]}
+                                .col-sm-3 #{app[2]}, #{app[1]}
+                                .col-sm-3 #{app[3]}, #{app[4]} to #{app[5]}
+                                .col-sm-5
+                                    input(type="button" class="btn btn-primary appointment_buttons" value="Accept" onclick="statusChange("+app[0]+", 'accepted')")
+                                    input(type="button" class="btn btn-danger appointment_buttons" value="Decline" onclick="statusChange("+app[0]+", 'declined')")
+                                    input(type="button" class="btn btn-primary appointment_buttons" value="Details")
+            div
+                h4 Current Appointments:
+            div
+                -var today = new Date()
+                -today.setDate(today.getDate())
+                -var nothing = true    // check if there exists such appointments have date today
+                h5 Today, #{today.getDate()}/ #{today.getMonth()+1}
+                .appointments_list#current.appointments_today
+                    for app in appointments
+                        -var datee = new Date(app[3])
+                        if (app[6] == 'accepted' && today.getDate() == datee.getDate() && today.getMonth() == datee.getMonth() && today.getYear() == datee.getYear())
+                            -nothing = false
+                            .row
+                                .col-sm-1 # #{app[0]}
+                                .col-sm-3 #{app[2]}, #{app[1]}
+                                .col-sm-3 #{app[3]}, #{app[4]} to #{app[5]}
+                                .col-sm-5
+                                    input(type="button" class="btn btn-primary appointment_buttons" value="Done"  onclick="statusChange("+app[0]+", 'done')")
+                                    input(type="button" class="btn btn-primary appointment_buttons" value="Details")
+                    if (nothing)
+                        .row
+                            .col-sm-2 Nothing to show.
+            div
+                -var tomorrow = new Date()
+                -tomorrow.setDate(today.getDate()+1)
+                -var nothing = true;    // check if there exists such appointments have date tomorrow
+                h5 Tomorrow, #{tomorrow.getDate()}/ #{tomorrow.getMonth()+1}
+                .appointments_list#current.appointments_tomorrow
+                    for app in appointments
+                        -var datee = new Date(app[3])
+                        if (app[6] == 'accepted'  && tomorrow.getDate() == datee.getDate() && tomorrow.getMonth() == datee.getMonth() && tomorrow.getYear() == datee.getYear())
+                            -nothing = false;
+                            .row
+                                .col-sm-1 # #{app[0]}
+                                .col-sm-3 #{app[2]}, #{app[1]}
+                                .col-sm-3 #{app[3]}, #{app[4]} to #{app[5]}
+                                .col-sm-5
+                                    input(type="button" class="btn btn-primary appointment_buttons" value="Details")
+                    if (nothing)
+                        .row
+                            .col-sm-2 Nothing to show.
+            div 
+                -var nothing = true;
+                h5 Later
+                .appointments_list#current.appointments_later
+                    for app in appointments
+                        -var datee = new Date(app[3])
+                        if (app[6] == 'accepted' && datee > tomorrow)
+                            -nothing = false
+                            .row
+                                .col-sm-1 # #{app[0]}
+                                .col-sm-3 #{app[2]}, #{app[1]}
+                                .col-sm-3 #{app[3]}, #{app[4]} to #{app[5]}
+                                .col-sm-5
+                                    input(type="button" class="btn btn-primary appointment_buttons" value="Details")
+                    if (nothing)
+                        .row
+                            .col-sm-2 Nothing to show.
