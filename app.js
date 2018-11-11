@@ -2,7 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 
-var indexRouter = require('./routes/index');
+// var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var signupRouter = require('./routes/signup');
 var doctorSettingsRouter = require('./routes/doctor/settings');
@@ -17,14 +17,13 @@ app.use(express.json()); // parser for JSON data
 app.use(express.urlencoded({ extended: false })); 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/', doctorDashboardRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
 // we wont use /doctor/settings as our route since
 // once the user or doctor has logged in, he/she should be
 // able to see settings at /settings and not at /doctor/settings (which doesnt make sense)
 app.use('/settings', doctorSettingsRouter);
-app.use('/dashboard', doctorDashboardRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
