@@ -87,7 +87,7 @@ router.get('/', function (req, res, next) {
   renderView(res, {
     fullName: 'Farooq AR',
     firstTimer: true,
-    
+    qualifications, // qualifications coming from database; dummy for now   
   });
 });
 
@@ -172,8 +172,7 @@ function renderView(res, config) {
   config.all_clinics = allClinics;
   config.clinics = doctorClinics;
   config.colleges = colleges;
-  config.qualifications = qualifications;
-  config.degrees = degrees;
+  config.degrees = degrees; 
   config.days = [
     'Monday',
     'Tuesday',

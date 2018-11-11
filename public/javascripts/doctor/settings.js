@@ -1,6 +1,7 @@
 /*
 doctor/settings.js 
 */
+
 // fetchConfig are additional options to be sent with post requests 
 const fetchConfig = {
   method: 'post',
