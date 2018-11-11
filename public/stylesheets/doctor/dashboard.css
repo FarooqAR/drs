@@ -1,46 +1,39 @@
 #doc_main_container
 {
-    margin: 40px;
-}
-#clinics_list
-{
-    margin-top: 20px;
-    float: left;
-    width: 300px;
-}
-#history_btn
-{
-    float: right;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 #appointment_heading
 {
-    margin-top: 90px;
+    /* margin-top: 90px; */
 }
-#appointments_body
+#clinic_input
 {
-    display: block;
+    margin-right: 10px;
 }
+#filter_appointments_form
+{
+    margin: 10px 0;
+}
+
+#appointments_body > div
+{
+    margin-top: 10px;
+}
+
 .appointments_list
 {
-    margin: 0px;
-    margin-top: 20px;
-    margin-left: 30px;
-    margin-bottom: 30px;
-    height: 250px;
-    width: 95%;
+    max-height: 250px;
     background-color: rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    padding: 10px 0;
+    overflow-y: auto;
+}
+.appointments_list .row
+{
+    margin: 0;
 }
 .appointments_list#current
 {
     height: 150px;
-}
-#appointment_info
-{
-    height: 200px;
 }
 .appointment_buttons
 {
@@ -50,7 +43,7 @@
 .appointments_list .row
 {
     height: 50px;
-    padding: 6px;
+    align-items: center;
 }
 .appointments_list .row:hover
 {
@@ -59,4 +52,5 @@
 div h5
 {
     text-align: center;
+    margin: 10px 0; 
 }
