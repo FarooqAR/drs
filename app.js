@@ -2,10 +2,11 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 
-var indexRouter = require('./routes/index');
+// var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var signupRouter = require('./routes/signup');
 var doctorSettingsRouter = require('./routes/doctor/settings');
+var doctorDashboardRouter = require('./routes/doctor/dashboard');
 
 var app = express();  
 // view engine setup
@@ -16,7 +17,7 @@ app.use(express.json()); // parser for JSON data
 app.use(express.urlencoded({ extended: false })); 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/', doctorDashboardRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
 // we wont use /doctor/settings as our route since
