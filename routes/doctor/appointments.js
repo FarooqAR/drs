@@ -9,13 +9,15 @@ router.get('/:id', function(req, res, next) {
     return next();
   }
   const appointment = [
-    id,
-    'Jalal', // name
-    '3/3/13', // created_at
+    id, // apoint_id 
+    'Indus Hospital', // clinic_name,
+    'Jalal', // patient_name
     'Monday', // day
-    '3:00 AM', // from
-    '4:00 AM', // to
+    '3:00 AM', // time_from
+    '4:00 AM', // time_to
     'pending', // status
+    'time_created', // time_created
+    3, // rating
     'meri sehat kharaab he meri sehat kharaab he', // description
   ]
   res.render('doctor/appoint_details', {

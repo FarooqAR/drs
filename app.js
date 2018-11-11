@@ -8,6 +8,7 @@ var signupRouter = require('./routes/signup');
 var doctorSettingsRouter = require('./routes/doctor/settings');
 var doctorDashboardRouter = require('./routes/doctor/dashboard');
 var doctorAppointmentsRouter = require('./routes/doctor/appointments');
+var clinicsRouter = require('./routes/doctor/clinics');
 
 var app = express();  
 // view engine setup
@@ -26,6 +27,7 @@ app.use('/signup', signupRouter);
 // able to see settings at /settings and not at /doctor/settings (which doesnt make sense)
 app.use('/settings', doctorSettingsRouter);
 app.use('/appointments', doctorAppointmentsRouter);
+app.use('/clinics', clinicsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

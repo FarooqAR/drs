@@ -10,20 +10,30 @@ block content
         tr
           th(colspan="2") Appointment Details
       - const id = appointment[0]; 
-      - const name = appointment[1]; 
-      - const created_at = appointment[2]; 
+      - const clinic_name = appointment[1]; 
+      - const patient_name = appointment[2]; 
       - const day = appointment[3]; 
       - const from = appointment[4]; 
       - const to = appointment[5]; 
       - const status = appointment[6]; 
-      - const description = appointment[7];    
+      - const created_at = appointment[7]; 
+      - const rating = appointment[8];    
+      - const description = appointment[9];  
       tbody
         tr
           td ID
           td #{id}
         tr
-          td Name
-          td #{name}
+          td Rating
+          td #{rating + '/5' || 'N/a'}  
+        tr
+          td Patient
+          td 
+            a(href="#") #{patient_name}
+        tr
+          td Clinic
+          td 
+            a(href="#") #{clinic_name}   
         tr
           td Created At
           td #{created_at}
