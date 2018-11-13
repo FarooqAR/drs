@@ -1,10 +1,8 @@
+// Added by faizain
 const dateAlert = document
-  .querySelector('#appoint_history_container')
-  .querySelector('.alert');
+    .querySelector('#appoint_history_container')
+    .querySelector('.alert');
 
-/*
-doctor/settings.js 
-*/
 // fetchConfig are additional options to be sent with post requests 
 const fetchConfig = {
     method: 'post',
@@ -17,20 +15,19 @@ const fetchConfig = {
 
 let alertHidden = true;
 
-    function showAlert(message) {
-        dateAlert.querySelector('.alert_message').innerHTML = message;
-        dateAlert.classList.remove('hide');
-        alertHidden = false;
-      };
-    
-      
+function showAlert(message) {
+    dateAlert.querySelector('.alert_message').innerHTML = message;
+    dateAlert.classList.remove('hide');
+    alertHidden = false;
+};
+
+
 function hideAlert() {
-        if (!alertHidden)
-        {
+    if (!alertHidden) {
         dateAlert.classList.add('hide');
         alertHidden = true;
-        }
-    };
+    }
+};
 
 const formSearch = document.getElementById('form_search')
 const sortBy = document.getElementById('sort_by_order')
@@ -45,7 +42,6 @@ let originalHistory = [];
 
 fetch('/history', {
     ...fetchConfig,
-
 })
     .then(result => result.json())
     .then(resultJson => {
@@ -79,8 +75,7 @@ function renderAppointments(appointments) {
             </div>
             <div class="container_flex">
                 <div class="flex_1"><strong>Rating: </strong><span>${rating}/10</span></div>
-                <div class="flex_2 text_right"><input class="btn btn-primary" type="button" onclick="showAppointmentDetails()"
-                        value="Details"></div>
+                <div class="flex_2 text_right"><a href="/appointments/${id}"><button class="btn btn-primary">Details</button></a></div>
             </div>
         </div>
         `;
@@ -94,18 +89,13 @@ formSearch.addEventListener('submit', function (event) {
         formSearch,
         { hash: true }
     );
-    //console.log("asdasd");
-    //console.log(data);
     hideAlert();
     var d = new Date("Dec 23, 2015")
-    var x = new Date(data.date_from)
-    //console.log(d.getTime())
-    if (x.getTime())
-    {
+    var x = new Date(data.date_from);
+    if (x.getTime()) {
         //console.log("andar date hai")
     }
-    else
-    {
+    else {
         //console.log("theres nothing here")
     }
     let filteredByClinic = false;
@@ -118,7 +108,7 @@ formSearch.addEventListener('submit', function (event) {
             return appoint[1] == data.clinic_name;
         });
         filteredByClinic = true;
-        console.log("filtered by clinic");        
+        console.log("filtered by clinic");
         renderTheFilteredList = true;
     }
     if (data.patient_name && data.patient_name.trim() != '') {
@@ -127,56 +117,43 @@ formSearch.addEventListener('submit', function (event) {
             return appoint[2] == data.patient_name;
         });
         filteredByPatient = true;
-        
+
         console.log("filtered by patient");
         renderTheFilteredList = true;
     }
     var from = new Date(data.date_from)
     from.setHours(from.getHours() - 5);
     var to = new Date(data.date_to)
-    if (from.getTime() && to.getTime())
-    {
+    if (from.getTime() && to.getTime()) {
         console.log("salam")
-        if (from.getTime() <= to.getTime())
-        {
+        if (from.getTime() <= to.getTime()) {
             console.log("sahi hai")
             filteredByDate = true;
             filteredHistory = (filteredByPatient ? filteredHistory : (filteredByClinic ? filteredHistory : originalHistory)).filter(function (appoint) {
                 var tempDate = new Date(appoint[3])
-                //console.log(from)
-                //console.log()
-                //console.log(tempDate)
-                //console.log()
-                //console.log("this is to date: " + to.getTime())
-                //console.log(from.getTime() <= tempDate.getTime()) && (tempDate.getTime() <= to.getTime());
                 return (from.getTime() <= tempDate.getTime()) && (tempDate.getTime() <= to.getTime());
             });
         }
-        else if(from.getTime() >= to.getTime())
-        {   
+        else if (from.getTime() >= to.getTime()) {
             showAlert("Sorry, we don't deal with time-travelling doctors. Yet.");
         }
     }
-    if (filteredByDate == true)
-    {
+    if (filteredByDate == true) {
         renderTheFilteredList = true;
         console.log("filtered by date");
     }
-    if ((isNaN(from.getTime()) && !isNaN(to.getTime())) || (!isNaN(from.getTime()) && isNaN(to.getTime())))
-    {
+    if ((isNaN(from.getTime()) && !isNaN(to.getTime())) || (!isNaN(from.getTime()) && isNaN(to.getTime()))) {
         console.log("doosre mein bhi dalna hai");
         showAlert("Insufficient Information : Please enter a date in the other field too.");
     }
-    
-    if (renderTheFilteredList == false)
-    {
+
+    if (renderTheFilteredList == false) {
         renderAppointments(originalHistory);
         console.log("original history render horahi hai");
         originalHistoryIsRendered = true;
         filteredHistoryIsRendered = false;
     }
-    else
-    {
+    else {
         renderAppointments(filteredHistory);
         console.log("filtered history render horahi hai");
         filteredByClinic = false;
@@ -186,24 +163,16 @@ formSearch.addEventListener('submit', function (event) {
         originalHistoryIsRendered = false;
         filteredHistoryIsRendered = true;
     }
-    
-    
-
-
 });
 
 sortBy.addEventListener("change", function (event) {
     const order = sortBy.value; // 1= ascending, 2 = descending
     let tempList = [];
-    console.log(filteredHistory);
     let anotherTempLisToRunTheLoopOn = [];
-    if (originalHistoryIsRendered)
-    {
+    if (originalHistoryIsRendered) {
         anotherTempLisToRunTheLoopOn = originalHistory;
-        console.log(anotherTempLisToRunTheLoopOn);
     }
-    else
-    {
+    else {
         anotherTempLisToRunTheLoopOn = filteredHistory;
     }
     tempList = anotherTempLisToRunTheLoopOn.slice();
@@ -221,6 +190,5 @@ sortBy.addEventListener("change", function (event) {
             return -1;
         })
     }
-    console.log(filteredHistory);
     renderAppointments(tempList);
 });

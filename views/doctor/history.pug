@@ -86,8 +86,5 @@ block content
                             strong Rating: 
                             span #{appointment[8]}/10
                         div.flex_2.text_right
-                            input(
-                                type="button", 
-                                onclick="showAppointmentDetails()"
-                                value="Details"
-                                class="btn btn-primary") 
+                            a(href="/appointments/" + appointment[0])
+                                button(class="btn btn-primary") 
