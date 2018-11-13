@@ -1,0 +1,93 @@
+extends ../common/layout
+
+block style_links
+  link(rel='stylesheet', href='/stylesheets/doctor/history.css')
+  link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+
+block scripts
+  script(src="/javascripts/doctor/history.js")
+
+block content
+    div#appoint_history_container
+        h2 Dr. #{fullName}
+        hr
+        include ../common/alert.pug
+        form#form_search
+            div.container_flex
+                input.flex_2(
+                    type="text"
+                    list='doctor_clinics_list', 
+                    class="form-control",
+                    name="clinic_name", 
+                    placeholder="Clinics/Hospitals" )
+                datalist#doctor_clinics_list
+                    for clinic in clinics
+                        option(value=clinic[1]) 
+                input.flex_2(
+                    type="text" 
+                    class="form-control",
+                    name="patient_name", 
+                    placeholder="Patient Name") 
+                input(
+                    type='submit'
+                    class='btn btn-primary'
+                    value='Filter' )
+
+            div.container_flex.items_centered
+                div.input-group.mb-3.flex_2
+                  div.input-group-prepend
+                    span.input-group-text From
+                  input#timing_time_from(
+                    type="date", 
+                    name="date_from"
+                    class="form-control"
+                    placeholder="From")  
+
+                div.input-group.mb-3.flex_2
+                  div.input-group-prepend
+                    span.input-group-text To
+                  input#timing_time_to(
+                    type="date", 
+                    name="date_to"
+                    class="form-control"
+                    placeholder="To") 
+        div.container_flex.text_right
+            div.flex_3
+            select#sort_by_order.flex_1(
+                type="text" 
+                class="form-control"
+                name="sort_by")
+                - var opt = 'Ascending'
+                option(value="-1", disabled) Sort By: 
+                option(value=1) Ascending
+                option(value=2) Descending
+        div.history_list
+            for appointment in appointments
+                div.appointment
+                    div.container_flex.my_div
+                        div.flex_1 
+                            strong #{appointment[0]}.
+                        div.flex_1 
+                            span #{appointment[2]}
+                        div.flex_1.text_right
+                            strong Date: 
+                            span #{appointment[3]}
+                    div.container_flex.my_div
+                        div.flex_1
+                            strong Clinic/Hospital: 
+                            span #{appointment[1]}
+                        div.flex_1.text_right
+                            strong From: 
+                            span #{appointment[4]} 
+                            strong To: 
+                            span #{appointment[5]}
+                    div.container_flex.my_div
+                        div.flex_1
+                            strong Rating: 
+                            span #{appointment[8]}/10
+                        div.flex_2.text_right
+                            input(
+                                type="button", 
+                                onclick="showAppointmentDetails()"
+                                value="Details"
+                                class="btn btn-primary") 

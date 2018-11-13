@@ -93,6 +93,8 @@ router.get('/', function (req, res, next) {
 
 router.post('/add/qualification', function (req, res, next) {
   const qualification = req.body;
+  //req.body matlab jo dal rahe hain wo ismen dale, or phir bhej de 
+  //list mein new element add karke send kardia
   qualification.unshift(qualifications.length);
   qualifications.push(qualification);
   // we can also send objects (json) 
@@ -117,7 +119,9 @@ router.post('/delete/qualification', function (req, res, next) {
 
 router.post('/add/clinic', function (req, res, next) {
   const clinic = req.body;
+  //console.log(doctorClinics.length);
   clinic.unshift(doctorClinics.length);
+
   doctorClinics.push(clinic);
   // we can also send objects (json) 
   res.send({
@@ -167,7 +171,8 @@ router.post('/delete/clinic_timing', function (req, res, next) {
   })
 });
 
-function renderView(res, config) {
+function 
+renderView(res, config) {
   config.roles = roles;
   config.all_clinics = allClinics;
   config.clinics = doctorClinics;

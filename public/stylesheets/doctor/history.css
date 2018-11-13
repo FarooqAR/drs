@@ -1,0 +1,103 @@
+#appoint_history_container
+{
+    margin: 40px;
+}
+#appoint_history_container #clinics_list
+{
+    margin-top: 20px;
+    float: left;
+    width: 300px;
+}
+#appoint_history_container #name_list
+{
+    margin-top: 20px;
+    float: left;
+    width: 300px;
+}
+#appoint_history_container #history_btn
+{
+    float: right;
+    margin-top: 20px;
+}
+#appoint_history_container #appointment_heading
+{
+    margin-top: 90px;
+}
+#appoint_history_container #appointments_body
+{
+    display: block;
+}
+#appoint_history_container .appointments_list
+{
+    margin: 0px;
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    height: 250px;
+    width: 95%;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+#appoint_history_container .appointments_list#current
+{
+    height: 150px;
+}
+#appoint_history_container #appointment_info
+{
+    height: 200px;
+}
+#appoint_history_container .appointment_buttons
+{
+    float: right;
+    margin-left: 10px;
+}
+#appoint_history_container .appointments_list .row
+{
+    height: 50px;
+    padding: 6px;
+}
+#appoint_history_container .appointments_list .row:hover
+{
+    background-color: lightgray;
+}
+
+#appoint_history_container .clinics_list
+{
+  background-color: #e9ecef;
+  padding: 10px;
+  margin: 5px;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.07);
+}
+
+#appoint_history_container .clinics
+{
+  background-color: #e9ecef;
+  padding: 10px;
+  margin: 5px;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.07);
+}
+
+#appoint_history_container .history_list .appointment
+{
+  background-color: #e9ecef;
+  padding: 10px;
+  margin: 5px;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.07);
+}
+#appoint_history_container #form_search .container_flex
+{
+  margin-top: 5px;
+}
+#appoint_history_container #form_search .container_flex > *:not(:last-child)
+{
+  margin-right: 5px;
+}
+
+#appoint_history_container .history_list .appointment .container_flex > *:not(:last-child)
+{
+  margin-bottom : 10px;
+}
+
+/*pata nai yeh kia horaha hai it is not working :( */

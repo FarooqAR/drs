@@ -9,12 +9,12 @@ var doctorSettingsRouter = require('./routes/doctor/settings');
 var doctorDashboardRouter = require('./routes/doctor/dashboard');
 var doctorAppointmentsRouter = require('./routes/doctor/appointments');
 var clinicsRouter = require('./routes/doctor/clinics');
+var doctorHistoryRouter = require('./routes/doctor/history');
 
 var app = express();  
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
 app.use(express.json()); // parser for JSON data
 app.use(express.urlencoded({ extended: false })); 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -28,6 +28,7 @@ app.use('/signup', signupRouter);
 app.use('/settings', doctorSettingsRouter);
 app.use('/appointments', doctorAppointmentsRouter);
 app.use('/clinics', clinicsRouter);
+app.use('/history', doctorHistoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
