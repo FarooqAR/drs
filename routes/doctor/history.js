@@ -33,7 +33,8 @@ const doctorClinics = [
 
   router.get('/', function (req, res, next) {
     renderView(res, {
-      fullName: 'Farooq AR'
+      fullName: req.session.user.fName + ' ' + req.session.user.lName,
+      user: req.session.user
     });
   });
 

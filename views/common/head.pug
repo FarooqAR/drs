@@ -8,4 +8,12 @@ header
         class="d-inline-block align-bottom"
         alt="") 
       span Doctor Rating System
+    if user
+      div.nav_links
+        a(href="/history")
+          span History
+        a(href="/settings")
+          span Settings
+        a(href="/logout")
+          span Logout 
       

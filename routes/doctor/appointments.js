@@ -21,7 +21,8 @@ router.get('/:id', function(req, res, next) {
     'meri sehat kharaab he meri sehat kharaab he', // description
   ]
   res.render('doctor/appoint_details', {
-    appointment
+    appointment,
+    user: req.session.user
   });
 });
 

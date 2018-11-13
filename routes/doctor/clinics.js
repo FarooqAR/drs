@@ -13,7 +13,8 @@ router.get('/:id', function (req, res, next) {
   ];
 
   res.render('doctor/clinic_details', {
-    clinic
+    clinic,
+    user: req.session.user
   });
 });
 
