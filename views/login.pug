@@ -3,12 +3,17 @@ extends common/layout
 block style_links
   link(rel='stylesheet', href='/stylesheets/login.css')
 
+block scripts
+  script(src="/javascripts/login.js")
+
 block content
   //- {typeF} is same as {type} but with first letter capitalized 
   -var typeF = type.slice(0, 1).toUpperCase() + type.slice(1)
   div#login_form_container
     h2.text_centered Login as a #{typeF}
-    form(action="/login/" + type, method="get")
+    if error
+      include common/alert
+    form(action="/login/" + type, method="post")
       div
         input#input_id(
           type="text" 

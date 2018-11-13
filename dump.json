@@ -1,0 +1,288 @@
+{
+  "users": [
+    {
+      "username": "farooqar",
+      "password": "123",
+      "fName": "Farooq",
+      "lName": "AR"
+    },
+    {
+      "username": "faizan",
+      "password": "456",
+      "fName": "Faizan",
+      "lName": "Shaikh"
+    },
+    {
+      "username": "hibajamal",
+      "password": "qw123",
+      "fName": "Hiba",
+      "lName": "Jamal"
+    }
+  ],
+  "doctors": [
+    {
+      "username": "waqarsaleem",
+      "password": "helloworld",
+      "fName": "Waqar",
+      "lName": "Saleem"
+    },
+    {
+      "username": "saleharaza",
+      "password": "nice123",
+      "fName": "Saleha",
+      "lName": "Raza"
+    },
+    {
+      "username": "shahjamal",
+      "password": "social",
+      "fName": "Shah",
+      "lName": "Jamal"
+    }
+  ],
+  "clinics": [
+    {
+      "name": "Aga Khan University Hospital",
+      "address": "Stadium Rd",
+      "lat": 24.8920349,
+      "long": 67.0725643
+    },
+    {
+      "name": "Clinic Hakeem Abdul Basit",
+      "address": "backside of usmania restaurant، University Rd, A-25 Block 13 A Gulshan-e-Iqbal",
+      "lat": 24.9050476,
+      "long": 67.0749986
+    },
+    {
+      "name": "Khurram Dental Clinic",
+      "address": "Block 13 Gulistan-e-Johar",
+      "lat": 24.9085335,
+      "long": 67.132749
+    },
+    {
+      "name": "Dr. Ziauddin Hospital",
+      "address": "4/B Shahrah-e-Ghalib Rd, Block 6 Clifton",
+      "lat": 24.8174417,
+      "long": 66.9985557
+    }
+  ],
+  "colleges": [
+    {
+      "name": "King Edward Medical College"
+    },
+    {
+      "name": "Nishtar Medical College"
+    },
+    {
+      "name": "Fatima Jinnah Medical College"
+    },
+    {
+      "name": "Army Medical College"
+    },
+    {
+      "name": "Allama Iqbal Medical College"
+    },
+    {
+      "name": "Punjab Medical College"
+    },
+    {
+      "name": "Quaid-e-Azam Medical College"
+    },
+    {
+      "name": "Rawalpindi Medical College"
+    },
+    {
+      "name": "Sargodha Medical College"
+    },
+    {
+      "name": "Shaikh Zayed Medical College"
+    },
+    {
+      "name": "Nawaz Sharif Medical College"
+    },
+    {
+      "name": "Federal Medical & Dental College"
+    },
+    {
+      "name": "Gujranwala Medical College"
+    },
+    {
+      "name": "D.G. Khan Medical College"
+    },
+    {
+      "name": "Lahore Medical & Dental College"
+    },
+    {
+      "name": "Shifa College of Medicine"
+    },
+    {
+      "name": "Liaquat National Medical Colleg"
+    }
+  ],
+  "degrees": [
+    {
+      "name": "Anaesthesiology"
+    },
+    {
+      "name": "Audiology"
+    },
+    {
+      "name": "Cardiovascular Sciences"
+    },
+    {
+      "name": "Clinical Micro Biology"
+    },
+    {
+      "name": "Dental Hygienist"
+    },
+    {
+      "name": "Dentistry"
+    },
+    {
+      "name": "Diagnostic Radiology"
+    },
+    {
+      "name": "Dermatology"
+    },
+    {
+      "name": "Food Sciences & Human Nutrition"
+    },
+    {
+      "name": "Forensic Studies"
+    },
+    {
+      "name": "Ophthalmology"
+    },
+    {
+      "name": "General Nursing"
+    },
+    {
+      "name": "Molecular Pathology"
+    },
+    {
+      "name": "Neuro Sciences"
+    },
+    {
+      "name": "Occupational Therapy"
+    },
+    {
+      "name": "Orthopedics"
+    }
+  ],
+  "roles": [
+    {
+      "name": "Neurosurgeon"
+    },
+    {
+      "name": "Physical Therapist"
+    },
+    {
+      "name": "Psycologist"
+    },
+    {
+      "name": "Dermatologist"
+    },
+    {
+      "name": "Audiologist"
+    },
+    {
+      "name": "Dentist"
+    },
+    {
+      "name": "Microbiologist"
+    },
+    {
+      "name": "Neurologist"
+    },
+    {
+      "name": "Orthopedic Surgeon"
+    },
+    {
+      "name": "Oncologist"
+    },
+    {
+      "name": "ENT Specialist"
+    },
+    {
+      "name": "Plastic Surgeon"
+    },
+    {
+      "name": "Radiologist"
+    }
+  ],
+  "doctorclinics": [
+    {
+      "DoctorId": 1,
+      "ClinicId": 1,
+      "DoctorRoleId": 1
+    },
+    {
+      "DoctorId": 1,
+      "ClinicId": 4,
+      "DoctorRoleId": 5
+    },
+    {
+      "DoctorId": 2,
+      "ClinicId": 2,
+      "DoctorRoleId": 2
+    },
+    {
+      "DoctorId": 2,
+      "ClinicId": 3,
+      "DoctorRoleId": 8
+    },
+    {
+      "DoctorId": 3,
+      "ClinicId": 3,
+      "DoctorRoleId": 7
+    },
+    {
+      "DoctorId": 3,
+      "ClinicId": 2,
+      "DoctorRoleId": 13
+    }
+  ],
+  "doctorqualifications": [
+    {
+      "CollegeId": 1,
+      "DegreeId": 1,
+      "DoctorCollegeDegreeId": 1,
+      "year": 1996
+    },
+    {
+      "CollegeId": 4,
+      "DegreeId": 2,
+      "DoctorCollegeDegreeId": 2,
+      "year": 1990
+    },
+    {
+      "CollegeId": 1,
+      "DegreeId": 3,
+      "DoctorCollegeDegreeId": 2,
+      "year": 1994
+    },
+    {
+      "CollegeId": 5,
+      "DegreeId": 4,
+      "DoctorCollegeDegreeId": 2,
+      "year": 2001
+    },
+    {
+      "CollegeId": 1,
+      "DegreeId": 5,
+      "DoctorCollegeDegreeId": 2,
+      "year": 2003
+    },
+    {
+      "CollegeId": 8,
+      "DegreeId": 6,
+      "DoctorCollegeDegreeId": 3,
+      "year": 2000
+    },
+    {
+      "CollegeId": 3,
+      "DegreeId": 6,
+      "DoctorCollegeDegreeId": 1,
+      "year": 2008
+    }
+  ]
+}

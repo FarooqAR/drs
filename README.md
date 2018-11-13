@@ -1,4 +1,9 @@
 # Doctor Rating System
+
+## Requirements
+
+- MS SQL Server 2017
+
 ## Getting Started:
 
 - Clone the repository (make sure you have installed git)
@@ -10,6 +15,8 @@
 - Install the packages:
 
   `npm install`
+
+- Setup `.env` file. It should look like the file named `sample.env` given in the root folder.
 
 - Run!
 
