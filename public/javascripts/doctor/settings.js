@@ -12,6 +12,11 @@ const fetchConfig = {
   },
 };
 const alertHidden = [true, true]; // [alertQualHidden, alertClinicHidden]
+
+
+//FORMQUAL MEIN DOCUMENT (PUG KI FILE) SE JISBHI FORM KA NAAM FORM_QUALIFICATION HAI UTHAO OR USKO 
+//FORMQUAL MEIN SAVE KARDO OR BAAD MEIN FORMQUAL KE LIEY FUNCTION BANAYA HAI
+
 const formQual = document.getElementById('form_qualification');
 const formClinic = document.getElementById('form_clinic');
 // error alert for qualification form
@@ -44,12 +49,15 @@ formClinic.querySelectorAll('input').forEach(function (el) {
 });
 
 // submit listener for formQual 
+
+// ISMEN YEH HORAHA HAI K JESE HAI 
 formQual.addEventListener('submit', function (event) {
   event.preventDefault();
   const data = serialize(  // get all the fields (3) for qualification
     document.getElementById('form_qualification'),
     { hash: true }
   );
+  console.log(data);
   const qualification = data.qualification; // [college, degree, year]
   addQualification(qualification);
 });
