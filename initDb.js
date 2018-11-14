@@ -23,7 +23,7 @@ function init() {
   const Clinic = require('./db/models/Clinic');
   const Review = require('./db/models/Review');
   const Role = require('./db/models/Role');
-
+  
   return Promise.all([
     ClinicTiming,
     DoctorClinic,
