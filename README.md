@@ -18,6 +18,14 @@
 
 - Setup `.env` file. It should look like the file named `sample.env` given in the root folder.
 
+- Create an empty database.   
+
+- Initialize the DB
+
+  `npm run dbinit`
+  
+  If the above command shows any errors, make sure again that your SQL Server is running and you have added correct info in `.env` file.
+
 - Run!
 
   `npm run dev`
