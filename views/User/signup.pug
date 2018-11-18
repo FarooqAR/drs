@@ -5,39 +5,46 @@ block style_links
 
 block content
     -var typeF = type.slice(0, 1).toUpperCase() + type.slice(1)
-
     div#signup_container
         h2.text_centered Sign Up as a #{typeF}
-        form(action="/signup/" + type, method="get")
+        if error
+          include ../common/alert
+        form(action="/signup/" + type, method="post")
             div
                 input(
                     type="text" 
                     class="form-control"
-                    name="lname" 
+                    name="fname" 
+                    value=fname
+                    required
                     placeholder="First Name")
             div
                 input(
                     type="text" 
                     class="form-control"
-                    name="lname" 
+                    name="lname"
+                    value=lname
+                    required 
                     placeholder="Last Name")
             div
                 input(
                     type="text" 
                     class="form-control"
                     name="username" 
+                    required
                     placeholder="Username")
             div
                 input(
                     type="password" 
                     class="form-control"
+                    required
                     name="password" 
                     placeholder="Password")
             div
                 input(
                     type="password" 
                     class="form-control"
-                    name="Fname" 
+                    name="cpassword" 
                     placeholder="Confirm Password")
             div
                 h6 Where do you live?

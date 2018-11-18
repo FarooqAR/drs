@@ -86,7 +86,11 @@ app.use('/settings', function (req, res, next) {
 app.use('/appointments', doctorAppointmentsRouter);
 
 app.use('/clinics', clinicsRouter);
-app.use('/history', doctorHistoryRouter);
+app.use('/history', function (req, res, next) {
+  if (req.session.user && req.session.user.type == 'doctor')
+    return doctorHistoryRouter(req, res, next)
+  next()
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -101,7 +105,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('common/error');
+  res.render('common/error', {user: req.session && req.session.user});
 });
 
 module.exports = app;
