@@ -39,9 +39,9 @@ router.post('/doctor', function (req, res, next) {
      req.session.user = { id: result[0].doctorId, type: 'doctor', fName: result[0].fName, lName: result[0].lName };
      return res.redirect('/');
    }
-   res.render('login', { type: 'doctor', error: 'Invalid Credentials' });
+   res.render('login', { type: 'doctor', error: 'Invalid Credentials', username });
   })
-  .catch(e => res.render('login', { type: 'doctor', error: 'Some Error Occurred' }));
+  .catch(e => res.render('login', { type: 'doctor', error: 'Some Error Occurred', username }));
 });
 
 router.post('/user', function (req, res, next) {
@@ -55,9 +55,9 @@ router.post('/user', function (req, res, next) {
       req.session.user = { id: result[0].userId, type: 'user', fName: result[0].fName, lName: result[0].lName };
       return res.redirect('/');
     }
-    res.render('login', { type: 'user', error: 'Invalid Credentials' });
+    res.render('login', { type: 'user', error: 'Invalid Credentials', username });
    })
-   .catch(e => res.render('login', { type: 'user', error: 'Some Error Occurred' }));
+   .catch(e => res.render('login', { type: 'user', error: 'Some Error Occurred', username }));
 
 });
 

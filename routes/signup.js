@@ -18,7 +18,7 @@ router.post('/user', function (req, res, next) {
   const { fname, lname, username, password, cpassword } = req.body;
   if (fname && lname && username && password && cpassword) {
     if (password != cpassword) {
-      return res.render('user/signup', { type: 'user', error: 'Password didnt match' });
+      return res.render('user/signup', { type: 'user', error: 'Password didnt match', fname, lname, username });
     }
     userDbService.createUserWithoutLocation({
       ...req.body,
@@ -37,7 +37,7 @@ router.post('/user', function (req, res, next) {
     })
   }
   else {
-    res.render('user/signup', { type: 'user', error: 'One or more fields missing' });
+    res.render('user/signup', { type: 'user', error: 'One or more fields missing', fname, lname, username });
   }
 });
 
@@ -45,7 +45,7 @@ router.post('/doctor', function (req, res, next) {
   const { fname, lname, username, password, cpassword } = req.body;
   if (fname && lname && username && password && cpassword) {
     if (password != cpassword) {
-      return res.render('doctor/signup', { type: 'doctor', error: 'Password didnt match' });
+      return res.render('doctor/signup', { type: 'doctor', error: 'Password didnt match',  fname, lname, username });
     }
     doctorDbService.createDoctor({
       ...req.body,
@@ -54,7 +54,7 @@ router.post('/doctor', function (req, res, next) {
     })
     .then(function (result) {
       req.session.user = { id: result[0][0].doctorId, type: 'doctor', fName: result[0][0].fName, lName: result[0][0].lName };
-      return res.redirect('/');
+      return res.redirect('/settings?new=true');
     })
     .catch(function (err) {
       let msg = 'Couldn\'t sign up. An unknown error occurred';
@@ -64,7 +64,7 @@ router.post('/doctor', function (req, res, next) {
     })
   }
   else {
-    res.render('doctor/signup', { type: 'doctor', error: 'One or more fields missing' });
+    res.render('doctor/signup', { type: 'doctor', error: 'One or more fields missing', fname, lname, username });
   }
 });
 

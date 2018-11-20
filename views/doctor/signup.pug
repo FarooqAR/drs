@@ -3,6 +3,9 @@ extends ../common/layout
 block style_links
   link(rel='stylesheet', href='/stylesheets/doctor/signup.css')
 
+block scripts
+  script(src="/javascripts/signup.js")
+
 block content
   //- {typeF} is same as {type} but with first letter capitalized 
   -var typeF = type.slice(0, 1).toUpperCase() + type.slice(1)
@@ -16,30 +19,38 @@ block content
           type="text" 
           class="form-control"
           name="fname" 
+          value=fname
+          required
           placeholder="First Name ")
       div
         input#input_lname(
           type="text" 
           class="form-control"
           name="lname" 
+          value=lname
+          required
           placeholder="Last Name ")
       div
         input#input_username(
         type="text" 
         class="form-control"
         name="username" 
+        value=username
+        required
         placeholder="Username ")   
       div
         input#input_password(
           type="password"
           class="form-control" 
           name="password" 
+          required
           placeholder="Password")
       div
         input#confirm_password(
           type="password"
           class="form-control" 
           name="cpassword" 
+          required
           placeholder="Confirm Password")    
       div.text_centered
         input(
