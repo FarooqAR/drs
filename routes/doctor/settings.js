@@ -87,7 +87,7 @@ router.get('/', function (req, res, next) {
   renderView(res, {
     fullName: req.session.user.fName + ' ' + req.session.user.lName,
     user: req.session.user,
-    firstTimer: true,
+    firstTimer: req.query.new === "true",
     qualifications, // qualifications coming from database; dummy for now   
   });
 });

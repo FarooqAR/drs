@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nodemon server.js",
+    "devins": "nodemon --inspect server.js",
     "dbinit": "node initDb.js", 
     "prod": "node server.js"
   },
