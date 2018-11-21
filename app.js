@@ -11,12 +11,13 @@ const db = require('./db');
 const loginRouter = require('./routes/login');
 const signupRouter = require('./routes/signup');
 const doctorSettingsRouter = require('./routes/doctor/settings');
-const userSettingsRouter = require('./routes/user/settings');
 const doctorDashboardRouter = require('./routes/doctor/dashboard');
-const userDashboardRouter = require('./routes/user/dashboard');
 const doctorAppointmentsRouter = require('./routes/doctor/appointments');
-const clinicsRouter = require('./routes/doctor/clinics');
+const clinicsForDoctorsRouter = require('./routes/doctor/clinics');
 const doctorHistoryRouter = require('./routes/doctor/history');
+const userDashboardRouter = require('./routes/user/dashboard');
+const doctorsForUsersRouter = require('./routes/user/doctors')
+const userSettingsRouter = require('./routes/user/settings');
 
 const app = express();
 
@@ -85,7 +86,12 @@ app.use('/settings', function (req, res, next) {
 
 app.use('/appointments', doctorAppointmentsRouter);
 
-app.use('/clinics', clinicsRouter);
+app.use('/clinics', clinicsForDoctorsRouter);
+app.use('/doctors', function (req, res, next) {
+  if (req.session.user && req.session.user.type == 'user')
+    return doctorsForUsersRouter(req, res, next)
+  next()
+});
 app.use('/history', function (req, res, next) {
   if (req.session.user && req.session.user.type == 'doctor')
     return doctorHistoryRouter(req, res, next)
@@ -105,7 +111,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('common/error', {user: req.session && req.session.user});
+  res.render('common/error', { user: req.session && req.session.user });
 });
 
 module.exports = app;

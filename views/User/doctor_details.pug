@@ -1,0 +1,34 @@
+extends ../common/layout
+
+block style_links
+  link(rel='stylesheet', href='/stylesheets/user/doctor_details.css')
+
+block scripts
+  script const doctorId = #{doctor.doctorId}
+  script(src="/javascripts/user/doctor_details.js")
+
+block content
+  div#doctor_details_container
+    h3 Dr. #{doctor.fName} #{doctor.lName}
+    .accordion#accordionExample
+      .card
+        #headingOne.card-header(data-toggle='collapse', data-target='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
+          h5.mb-0 Clinics
+        #collapseOne.collapse.show(aria-labelledby='headingOne', data-parent='#accordionExample')
+          .card-body.clinics
+            | Loading ...
+      .card
+        #headingTwo.card-header(data-toggle='collapse', data-target='#collapseTwo', aria-expanded='false', aria-controls='collapseTwo')
+          h5.mb-0 Reviews
+        #collapseTwo.collapse(aria-labelledby='headingTwo', data-parent='#accordionExample')
+          .card-body.reviews
+            | Loading ...
+      .card
+        #headingThree.card-header( data-toggle='collapse', data-target='#collapseThree', aria-expanded='false', aria-controls='collapseThree')
+          h5.mb-0 Qualifications
+        #collapseThree.collapse(aria-labelledby='headingThree', data-parent='#accordionExample')
+          .card-body.qualifications
+            | Loading ...
+      
+
+            

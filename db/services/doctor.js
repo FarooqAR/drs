@@ -1,11 +1,34 @@
 const Sequelize = require('sequelize');
 const db = require('../');
 const Doctor = require('../models/Doctor');
+const DoctorQualification = require('../models/DoctorQualification');
 
 function getMatchingDoctor(username, password) {
   return db.query(
     `SELECT doctorId, fName, lName from Doctors WHERE username='${username}' and password='${password}'`,
     { model: Doctor }
+  );
+}
+function getDoctorById(doctorId) {
+  return db.query(
+    `SELECT doctorId, fName, lName from Doctors WHERE doctorId='${doctorId}'`,
+    { model: Doctor }
+  );
+}
+function getDoctorClinics(doctorId) {
+  return db.query(
+    `SELECT c.clinicId, c.name as clinicName, r.name role  
+    from DoctorClinics dc, Clinics c, Roles r 
+    where doctorId=${doctorId} and dc.clinicId=c.clinicId and dc.DoctorRoleId=r.roleId`,
+    
+  );
+}
+
+function getDoctorQualifications(doctorId) {
+  return db.query(
+    `SELECT c.name as college, d.name as degree, year  
+    from DoctorQualifications dq, Colleges c, Degrees d
+    where DoctorCollegeDegreeId=${doctorId} and dq.DegreeId=d.degreeId and dq.CollegeId=c.collegeId`, 
   );
 }
 function createDoctor(doctor) {
@@ -16,6 +39,9 @@ function createDoctor(doctor) {
   );
 }
 module.exports = {
+  createDoctor,
   getMatchingDoctor,
-  createDoctor
+  getDoctorById,
+  getDoctorClinics,
+  getDoctorQualifications
 };

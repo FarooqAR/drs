@@ -1,0 +1,14 @@
+#doctor_details_container{
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+#doctor_details_container .accordion{
+  margin-top: 20px;
+}
+#doctor_details_container .card-header{
+  cursor: pointer;
+}
+#doctor_details_container .card-header:hover{
+  color: var(--primary);
+}
