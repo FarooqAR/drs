@@ -1,0 +1,14 @@
+#clinic_details_container{
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+#clinic_details_container .accordion{
+  margin-top: 20px;
+}
+#clinic_details_container .card-header{
+  cursor: pointer;
+}
+#clinic_details_container .card-header:hover{
+  color: var(--primary);
+}

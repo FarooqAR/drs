@@ -1,0 +1,29 @@
+extends ../common/layout
+
+block style_links
+  link(rel='stylesheet', href='/stylesheets/user/clinic_details.css')
+
+block scripts
+  script const clinicId = #{clinic.clinicId}
+  script(src="/javascripts/user/clinic_details.js")
+
+block content
+  div#clinic_details_container
+    h3 #{clinic.name}
+    .accordion#accordionExample
+      .card
+        #headingOne.card-header(data-toggle='collapse', data-target='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
+          h5.mb-0 Address
+        #collapseOne.collapse.show(aria-labelledby='headingOne', data-parent='#accordionExample')
+          .card-body
+            div #{clinic.address}
+            iframe(src="https://www.google.com/maps/embed?lat=" + clinic.lat + ",long=" + clinic.long + "15z", width="300" frameborder="0")
+      .card
+        #headingOne.card-header(data-toggle='collapse', data-target='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
+          h5.mb-0 Doctors
+        #collapseOne.collapse.show(aria-labelledby='headingOne', data-parent='#accordionExample')
+          .card-body.doctors
+            | Loading ...
+      
+
+            

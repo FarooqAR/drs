@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../');
 const Doctor = require('../models/Doctor');
-const DoctorQualification = require('../models/DoctorQualification');
 
 function getMatchingDoctor(username, password) {
   return db.query(

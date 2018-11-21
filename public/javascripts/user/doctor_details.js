@@ -20,7 +20,7 @@ fetch(`/doctors/${doctorId}/clinics`, {
         <div class='container_flex'>
           <a href='/clinics/${clinic.clinicId}' class='flex_2'>${clinic.clinicName}</a>
           <span class='flex_1'>${clinic.role}</span>
-          <a href='/appointments/create/${doctorId}/${clinic.clinicId}'>Details</a>
+          <a href='/appointments/create/${doctorId}/${clinic.clinicId}'>Appoint</a>
         </div>
       `;
       });

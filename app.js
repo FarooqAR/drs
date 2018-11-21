@@ -16,7 +16,8 @@ const doctorAppointmentsRouter = require('./routes/doctor/appointments');
 const clinicsForDoctorsRouter = require('./routes/doctor/clinics');
 const doctorHistoryRouter = require('./routes/doctor/history');
 const userDashboardRouter = require('./routes/user/dashboard');
-const doctorsForUsersRouter = require('./routes/user/doctors')
+const doctorsForUsersRouter = require('./routes/user/doctors');
+const clinicsForUsersRouter = require('./routes/user/clinics');
 const userSettingsRouter = require('./routes/user/settings');
 
 const app = express();
@@ -86,7 +87,11 @@ app.use('/settings', function (req, res, next) {
 
 app.use('/appointments', doctorAppointmentsRouter);
 
-app.use('/clinics', clinicsForDoctorsRouter);
+app.use('/clinics', function (req, res, next) {
+  if (req.session.user && req.session.user.type == 'doctor')
+    return clinicsForDoctorsRouter(req, res, next)
+  clinicsForUsersRouter(req, res, next);
+});
 app.use('/doctors', function (req, res, next) {
   if (req.session.user && req.session.user.type == 'user')
     return doctorsForUsersRouter(req, res, next)
