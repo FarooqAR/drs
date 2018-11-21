@@ -3,11 +3,6 @@
   margin: 0 auto;
   margin-top: 40px;
 }
-#clinic_details_container .further_details {
-  width: 272px;
-  max-height: 150px;
-  overflow-y: auto;
-}
 #clinic_details_container .controls .btn{
   margin: 0 3px;
 }

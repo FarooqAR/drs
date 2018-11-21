@@ -7,10 +7,14 @@ const util = require('../util');
 
 /* GET home page. */
 router.get('/doctor', function (req, res, next) {
+  if (req.session.user)
+    return res.redirect('/');
   res.render('doctor/signup', { type: 'doctor' });
 });
 
 router.get('/user', function (req, res, next) {
+  if (req.session.user)
+    return res.redirect('/');
   res.render('user/signup', { type: 'user' });
 });
 

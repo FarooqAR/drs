@@ -13,11 +13,11 @@ const DoctorTiming = db.define('DoctorTiming', {
     allowNull: false
   },
   to: {
-    type: Sequelize.DATE,
+    type: Sequelize.STRING,
     allowNull: false
   },
   from: {
-    type: Sequelize.DATE,
+    type: Sequelize.STRING,
     allowNull: false
   },
   ClinicDoctorId: {
