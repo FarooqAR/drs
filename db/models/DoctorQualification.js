@@ -14,10 +14,12 @@ const DoctorQualification = db.define('DoctorQualification', {
   CollegeId: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    unique: 'CollegeIdDegreeIdIndex'
   },
   DegreeId: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    unique: 'CollegeIdDegreeIdIndex'
   },
   DoctorCollegeDegreeId: {
     type: Sequelize.INTEGER,

@@ -1,5 +1,4 @@
-var express = require('express');
-var router = express.Router();
+var router = require('../clinic');
 
 router.get('/:id', function (req, res, next) {
   const id = req.params.id;

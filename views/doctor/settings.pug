@@ -21,24 +21,8 @@ block content
         form#form_qualification
           div.container_flex.items_centered
             //- this points to the datalist#colleges_list
-            input.flex_3(
-                list="colleges_list" 
-                type="text" 
-                class="form-control"
-                name="qualification[]"
-                placeholder="Institute/College/University")
-            datalist#colleges_list
-                  for college in colleges
-                    option(value=college[1]) 
-            input.flex_2(
-                list="degrees_list" 
-                type="text" 
-                class="form-control"
-                name="qualification[]" 
-                placeholder="Degree")  
-            datalist#degrees_list
-                  for degree in degrees
-                    option(value=degree[1])       
+            select#colleges_list.flex_3(name="qualification[]", class="form-control")
+            select#degrees_list.flex_2(name="qualification[]", class="form-control")     
             select.flex_1(
                 class="form-control"
                 name="qualification[]") 
@@ -52,19 +36,6 @@ block content
                 class="btn btn-primary" 
                 value="Add")  
         div.qualifications_list
-          
-          for qualification in qualifications
-            -const id = qualification[0];
-            -const college = qualification[1];
-            -const degree = qualification[2];
-            -const year = qualification[3];
-            div.qualification.container_flex.text_centered.items_centered
-              div.qualification_college.flex_1 #{college} 
-              div.qualification_degree.flex_1 #{degree} 
-              div.qualification_year.flex_1 #{year} 
-              div.controls.flex_1 
-                button.btn.btn-danger.btn_delete_qualification(
-                  onclick='deleteQualification(' + id + ')') Delete
               
       //- all clinics go inside this container
       div.clinics_container
@@ -75,23 +46,8 @@ block content
           div.container_flex
             div.flex_1
               div.container_flex
-                //- clinic name
-                input.flex_3(
-                  list='all_clinics_list', 
-                  class="form-control",
-                  name="clinic_name", 
-                  placeholder="Add from existing clinics/hospitals" )
-                datalist#all_clinics_list
-                  for clinic in all_clinics
-                    option(value=clinic[1]) 
-                //- role in clinic    
-                select.flex_2(
-                    type="text" 
-                    class="form-control"
-                    name="clinic_role")
-                  option(value="-1", disabled) Select Role
-                  each role in roles
-                    option(value=role) #{role}    
+                select#all_clinics_list.flex_3(name="clinic_name", class="form-control")
+                select#roles_list.flex_3(name="clinic_role", class="form-control")
               
               h5 Add Timings  
               div.current_clinic_timings_list
@@ -126,43 +82,13 @@ block content
                   type="button", 
                   onclick="addClinicTiming()"
                   value="Add"
-                  class="btn btn-primary")    
-              div.clinics_list
-                for clinic in clinics
-                  div.clinic
-                    div.container_flex
-                      div.flex_3
-                        div 
-                          strong Clinic/Hospital: 
-                          span #{clinic[1]} 
-                        div 
-                          strong Role: 
-                          span #{clinic[2]}
-                      div.flex_1.text_right
-                        input(
-                          type="button"
-                          onclick="deleteClinic(" + clinic[0] + ")"
-                          class="btn btn-danger"
-                          value="Delete") 
-
-                    div 
-                      strong Timings: 
-                    for timing in clinic[3]
-                      div.container_flex.clinic_timing_item.items_centered
-                        div.flex_1 #{timing[1]}
-                        div.flex_3.text_centered #{timing[2]} to #{timing[3]}
-                        div.flex_1.text_right
-                          input(
-                            type="button"
-                            class="btn"
-                            onclick="removeClinicTiming(" + clinic[0] + "," + timing[0] + ")"
-                            value!="&times;")               
-
+                  class="btn btn-primary")   
               input(
                 type="submit", 
                 value="Add Clinic"
-                class="btn btn-primary")  
-
+                class="btn btn-primary")     
+              div.clinics_list
+                
       div.profile_photo_container
         h4 Add your cute photo
         div

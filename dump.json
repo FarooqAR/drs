@@ -284,5 +284,44 @@
       "DoctorCollegeDegreeId": 1,
       "year": 2008
     }
+  ],
+  "doctortimings": [
+    {
+      "day": "Tuesday",
+      "to": "14:00",
+      "from": "15:00",
+      "ClinicDoctorId": 1
+    },
+    {
+      "day": "Wednesday",
+      "to": "10:00",
+      "from": "11:00",
+      "ClinicDoctorId": 2
+    },
+    {
+      "day": "Tuesday",
+      "to": "14:00",
+      "from": "15:00",
+      "ClinicDoctorId": 3
+    },
+    {
+      "day": "Wednesday",
+      "to": "10:00",
+      "from": "11:00",
+      "ClinicDoctorId": 4
+    },
+    {
+      "day": "Tuesday",
+      "to": "14:00",
+      "from": "15:00",
+      "ClinicDoctorId": 5
+    },
+    {
+      "day": "Wednesday",
+      "to": "10:00",
+      "from": "11:00",
+      "ClinicDoctorId": 6
+    }
+    
   ]
 }
