@@ -2,6 +2,10 @@ const Sequelize = require('sequelize');
 const db = require('../');
 const Clinic = require('../models/Clinic');
 
+function getAllClinics() {
+  return db.query(`SELECT * from Clinics`, { type: Sequelize.QueryTypes.SELECT });
+}
+
 function getClinicById(clinicId) {
   return db.query(`
     SELECT * from Clinics where clinicId=${clinicId}
@@ -15,5 +19,6 @@ function getClinicDoctors(clinicId) {
 }
 module.exports = {
   getClinicById,
-  getClinicDoctors
+  getClinicDoctors,
+  getAllClinics
 };

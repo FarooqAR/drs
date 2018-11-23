@@ -10,10 +10,12 @@ const DoctorClinic = db.define('DoctorClinic', {
   DoctorId: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    unique: 'DoctorIdClinicIdIndex'
   },
   ClinicId: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    unique: 'DoctorIdClinicIdIndex'
   },
   DoctorRoleId: {
     type: Sequelize.INTEGER,

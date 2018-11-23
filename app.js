@@ -10,6 +10,10 @@ const db = require('./db');
 // const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const signupRouter = require('./routes/signup');
+const qualRouter = require('./routes/qualification');
+const roleRouter = require('./routes/roles');
+const timingsRouter = require('./routes/timing');
+const affiliationRouter = require('./routes/affiliation');
 const doctorSettingsRouter = require('./routes/doctor/settings');
 const doctorDashboardRouter = require('./routes/doctor/dashboard');
 const doctorAppointmentsRouter = require('./routes/doctor/appointments');
@@ -103,6 +107,10 @@ app.use('/history', function (req, res, next) {
   next()
 });
 
+app.use('/qualification', qualRouter);
+app.use('/roles', roleRouter);
+app.use('/timings', timingsRouter);
+app.use('/affiliations', affiliationRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

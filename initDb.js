@@ -133,6 +133,11 @@ function dumpData() {
         return db.query(
           `INSERT INTO doctorqualifications(CollegeId, DegreeId, DoctorCollegeDegreeId, year) VALUES(${doctorqualification.CollegeId}, ${doctorqualification.DegreeId}, ${doctorqualification.DoctorCollegeDegreeId}, ${doctorqualification.year})`
         );
-      })
+      }),
+      ...dump.doctortimings.map(function (doctortiming) {
+        return db.query(
+          `INSERT INTO doctortimings(day, [to], [from], ClinicDoctorId) VALUES('${doctortiming.day}', '${doctortiming.to}', '${doctortiming.from}', ${doctortiming.ClinicDoctorId})`
+        );
+      }),
     ])
 }
