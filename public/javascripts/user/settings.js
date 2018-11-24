@@ -2,8 +2,8 @@ var marker;
 var setCentre;
 var proceed = false;
 var alertHidden = true;
-var x = 0;
-var y = 0;
+var lat = 0;
+var long = 0;
 var proceedAlert = document.querySelector(".alert");
 
 var fetchConfig = {
@@ -80,13 +80,13 @@ function initMap() {
 
 function showLocation(position)
 {
-  x = position.lat().toFixed(3);
-  y = position.lng().toFixed(3);
+  lat = position.lat().toFixed(3);
+  long = position.lng().toFixed(3);
   var insert = document.getElementById("show_position");
    if (insert.firstChild){
      insert.removeChild(insert.firstChild);
    }
-  var locationText = 'Lat:  '+x+',  Lon: '+y;
+  var locationText = 'Lat:  '+lat+',  Lon: '+long;
   var child = document.createTextNode(locationText);
   insert.appendChild(child);
   proceed = true;
@@ -98,8 +98,15 @@ function Proceed(){
     /* fetch func */
     fetch('/settings/location', {
       ...fetchConfig,
-      body: JSON.stringify({ x, y })
+      body: JSON.stringify({ lat, long })
     })
+    .then(r => {
+      document.querySelector('.alert-success').classList.remove('hide');
+      setTimeout(() => {
+        document.querySelector('.alert-success').classList.add('hide');
+      }, 5000)
+    })
+    .catch(err => showAlert(err));
   }
   else{
     showAlert("Please set location.");

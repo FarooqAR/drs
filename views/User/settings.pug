@@ -18,6 +18,9 @@ block content
       script(async defer src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDDpP5UqQtZ9kLxW7VjZEoi1_CKy3m7Euk&libraries=places&callback=initMap")
     div#confirm.container
         include ../common/alert.pug
+        div.alert.alert-success.hide(role='alert')
+          //- giving some default message
+          div.alert_message Location was updated successfully! 
         .row
           .col-sm-6 
             input(id="confirm_btn" 

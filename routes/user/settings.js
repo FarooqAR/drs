@@ -8,26 +8,17 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/location', function (req, res, next) {
-  console.log("in post");
-  const { x, y } = req.body;
-  username = req.session.user.id;
-  var data = {x, y, username};
-  console.log(data);
-
-  userDbService.updateUserWithLocation({
-    ...data
-  })
-  .then(function (result) {
-    req.session.user = { id: username, type: 'user', lat: x, long: y};
-    return res.redirect('/user/dashboard');
-  })
-  .catch(function (err) {
-    fname = req.session.user.fName;
-    lname = req.session.user.lName;
-    let msg = 'Couldn\'t add location. An unknown error occurred';
-    res.render('user/settings', { type: 'user', error: msg, fname, lname });
+  const { lat, long } = req.body;
+  const userId = req.session.user.id;
+  var data = { lat, long, userId };
+  userDbService.updateUserWithLocation(data)
+    .then(function (result) {
+      res.send(result)
     })
-  res.redirect( '/' );
+    .catch(function (err) {
+      let error = 'Couldn\'t add location. An unknown error occurred';
+      res.send({ error });
+    })
 });
 
 
