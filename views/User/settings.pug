@@ -4,6 +4,7 @@ block style_links
   link(rel='stylesheet', href='/stylesheets/user/settings.css')
 
 block scripts
+  script(async defer src="https://maps.googleapis.com/maps/api/js?key=" + process.env.GOOGLE_MAPS_API_KEY + "&libraries=places&callback=initMap")
   script(src="/javascripts/user/settings.js")
   
 block content 
@@ -14,8 +15,7 @@ block content
             type="text" 
             placeholder="Search...")
       div#map
-      script(src = "/javascripts/user/settings.js")
-      script(async defer src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDDpP5UqQtZ9kLxW7VjZEoi1_CKy3m7Euk&libraries=places&callback=initMap")
+      
     div#confirm.container
         include ../common/alert.pug
         div.alert.alert-success.hide(role='alert')
