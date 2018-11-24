@@ -17,8 +17,17 @@ function createUserWithoutLocation(user) {
   );
 }
 
+function updateUserWithLocation(user){
+  console.log('inside dbuserloc');
+  console.log(user.x);
+  return db.query(
+    `UPDATE Users SET lat = ${user.x}, long = ${user.y} WHERE userId like ${user.username}`,
+    { bind: [user.username, user.x, user.y], type: Sequelize.QueryTypes.UPDATE }
+  )
+}
+
 module.exports = {
   getMatchingUser,
-  createUserWithoutLocation,
-  // createUserWithLocation
+  updateUserWithLocation,
+  createUserWithoutLocation
 };

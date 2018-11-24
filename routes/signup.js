@@ -31,7 +31,7 @@ router.post('/user', function (req, res, next) {
     })
     .then(function (result) {
       req.session.user = { id: result[0][0].userId, type: 'user', fName: result[0][0].fName, lName: result[0][0].lName };
-      return res.redirect('/');
+      return res.redirect('/settings');
     })
     .catch(function (err) {
       let msg = 'Couldn\'t sign up. An unknown error occurred';
