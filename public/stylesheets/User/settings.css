@@ -1,0 +1,65 @@
+#map {
+    margin-top: 20px;
+    height: 100%;
+    width: 100%;
+    border-style: groove;
+    position: relative;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+h3 {
+    padding: 10px;
+    margin-top: 40px;
+    text-align: center;
+}
+
+h4 {
+    font-weight: 400;
+    margin: 25px;
+    text-align: center;
+}
+
+#map_input{
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 50%;
+}
+
+.add_map
+{
+    height: 350px;
+    width: 100%;
+}
+
+#confirm_btn
+{
+    position: relative;
+    margin-bottom: 30px;
+}
+
+#show_position
+{
+    float: right;
+    border-style: groove;
+    border-radius: 5%;
+    width: 200px;
+    text-align: center;
+    color: #4d4d33;
+    height: 37px;
+    font-size: 1rem;
+}
+
+.container .row
+{
+    margin-top: 25px;
+}

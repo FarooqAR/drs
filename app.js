@@ -59,9 +59,9 @@ app.use(express.json()); // parser for JSON data
 app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
+
 
 app.use(function (req, res, next) {
   if (req.session.user)

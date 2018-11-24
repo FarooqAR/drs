@@ -17,8 +17,15 @@ function createUserWithoutLocation(user) {
   );
 }
 
+function updateUserWithLocation(user){
+  return db.query(
+    `UPDATE Users SET lat = ${user.lat}, long = ${user.long} WHERE userId=${user.userId}`,
+    { bind: [user.userId, user.lat, user.long], type: Sequelize.QueryTypes.UPDATE }
+  )
+}
+
 module.exports = {
   getMatchingUser,
-  createUserWithoutLocation,
-  // createUserWithLocation
+  updateUserWithLocation,
+  createUserWithoutLocation
 };
