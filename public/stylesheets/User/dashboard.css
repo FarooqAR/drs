@@ -1,0 +1,31 @@
+#map {
+    margin: 20px 0 40px 40px; 
+    height: 40%;
+    width: 80%;
+    border-style: groove;
+    position: relative;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+h3 {
+    margin: 40px;
+}
+
+.filter {
+    margin-left: 40px;
+}
+
+#search_btn {
+    margin: 15px;
+    margin-left: 0;
+}
+
+#options {
+    width: 40%;
+    margin: 10px;
+}

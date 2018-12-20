@@ -2,6 +2,10 @@ const Sequelize = require('sequelize');
 const db = require('../');
 const Doctor = require('../models/Doctor');
 
+function getAllDoctors() {
+  return db.query(`SELECT * from Doctors`, { type: Sequelize.QueryTypes.SELECT });
+}
+
 function getMatchingDoctor(username, password) {
   return db.query(
     `SELECT doctorId, fName, lName from Doctors WHERE username='${username}' and password='${password}'`,
@@ -44,6 +48,7 @@ function createDoctor(doctor) {
   );
 }
 module.exports = {
+  getAllDoctors,
   createDoctor,
   getMatchingDoctor,
   getDoctorById,
