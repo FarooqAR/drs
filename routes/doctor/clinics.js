@@ -2,7 +2,13 @@ const express = require('express');
 const router = express.Router();
 const createError = require('http-errors');
 const clinicDbService = require('../../db/services/clinic');
-
+router.get('/', function (req, res, next) {
+  clinicDbService.getAllClinics()
+    .then(result => {
+      res.send(result)
+    })
+    .catch(e => res.send({ error: e }))
+});
 router.get('/:clinicId', function (req, res, next) {
   clinicDbService.getClinicByDoctorId(req.params.clinicId, req.session.user.id)
     .then(result => {

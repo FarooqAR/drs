@@ -2,6 +2,21 @@ const Sequelize = require('sequelize');
 const db = require('../');
 const Appointment = require('../models/Appointment');
 
+function getCurrentAppointments(clinicId, doctorId) {
+  let query = `SELECT appointmentId, Clinics.name as clinicName,(Users.fName+' '+Users.lName) as patientFullName, [from],[to], [status]
+  FROM Appointments, Clinics, Users
+  WHERE [status] in ('pending', 'new')
+  AND userId = AppointUserId
+  AND clinicId = AppointClinicId 
+  AND AppointDoctorId = ${doctorId}`;
+
+  if (clinicId > -1)
+    query += ` AND clinicId = ${clinicId}`;
+  return db.query(
+    query, { type: Sequelize.QueryTypes.SELECT }
+  );
+}
+
 function create(appointment) {
   const { from, to, description, doctorId, userId, clinicId } = appointment;
   return db.query(`
@@ -16,7 +31,21 @@ function create(appointment) {
     })
 }
 function get(appointmentId, user) {
-  const reverseType = user.type == 'user' ? 'doctor' : 'user'; 
+  const reverseType = user.type == 'user' ? 'doctor' : 'user';
+  let query = `
+  SELECT [from], [to], description, status, ${reverseType}Id, clinicId, reviewId, (d.fName + ' ' + d.lName) as ${reverseType}FullName, c.name as clinicName, r.text as review, rating, a.createdAt
+  FROM ${reverseType}s d, Clinics c, Appointments a left join Reviews r on 
+   AppointReviewId=reviewId
+   WHERE appointmentId=${appointmentId}
+   and a.AppointClinicId=clinicId 
+   and a.Appoint${reverseType}Id=${reverseType}Id and a.Appoint${user.type}Id=${user.id}`;
+
+  return db.query(query, {
+    type: Sequelize.QueryTypes.SELECT
+  });
+}
+function get(appointmentId, user) {
+  const reverseType = user.type == 'user' ? 'doctor' : 'user';
   let query = `
   SELECT [from], [to], description, status, ${reverseType}Id, clinicId, reviewId, (d.fName + ' ' + d.lName) as ${reverseType}FullName, c.name as clinicName, r.text as review, rating, a.createdAt
   FROM ${reverseType}s d, Clinics c, Appointments a left join Reviews r on 
@@ -40,5 +69,6 @@ function changeStatus(appointId, doctorId, status) {
 module.exports = {
   create,
   get,
-  changeStatus
+  changeStatus,
+  getCurrentAppointments
 };

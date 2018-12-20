@@ -9,7 +9,7 @@ function getAllAppointments(id){
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
         (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
         FROM Appointments, Doctors, Clinics, Users, Reviews
-        WHERE [status] = 'Done'
+        WHERE [status] in ('rejected', 'done')
         AND Doctors.doctorId = Appointments.AppointDoctorId
         AND Appointments.AppointUserId = ${id}
         AND Clinics.clinicId = AppointClinicId
@@ -29,7 +29,7 @@ function getAppointsByClinic(clinic, userid){
         FROM Appointments, Doctors, Clinics, Users, Reviews
         WHERE Users.userId=${userid} 
         AND Clinics.name LIKE '%${clinic}%'
-        AND [status] = 'Done' 
+        AND [status] in ('rejected', 'done') 
         AND Doctors.doctorId = Appointments.AppointDoctorId
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
@@ -46,7 +46,7 @@ function getAppointsByDoctorname(doctorname, userid) {
         (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
         FROM Appointments, Doctors, Clinics, Users, Reviews
         WHERE (Doctors.fName+' '+Doctors.lName) LIKE '%${doctorname}%' 
-        AND [status] = 'Done' 
+        AND [status] in ('rejected', 'done') 
         AND Users.userId=${userid}
         AND Doctors.doctorId = Appointments.AppointDoctorId
         AND Clinics.clinicId = AppointClinicId
@@ -64,7 +64,7 @@ function getAppointmentsByDate(fromdate, todate, userid){
         (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
         FROM Appointments, Doctors, Clinics, Users, Reviews
         WHERE [from] >= '${fromdate}' AND [from] <= '${todate}'
-        AND [status] = 'Done' 
+        AND [status] in ('rejected', 'done') 
         AND Users.userId=${userid} 
         AND Doctors.doctorId = Appointments.AppointDoctorId
         AND Clinics.clinicId = AppointClinicId
@@ -84,7 +84,7 @@ function getAppointsByDoctornameAndClinic(doctorname, clinic,userid){
         FROM Appointments, Doctors, Clinics, Users, Reviews
         WHERE (Doctors.fName+' '+Doctors.lName) LIKE '%${doctorname}%' 
         AND Clinics.name LIKE '%${clinic}%'
-        AND [status] = 'Done' 
+        AND [status] in ('rejected', 'done') 
         AND Users.userId=${userid}
         AND Doctors.doctorId = Appointments.AppointDoctorId
         AND Clinics.clinicId = AppointClinicId
@@ -103,7 +103,7 @@ function getAppointmentsByDateAndClinic(fromdate, todate, clinic, userid){
         FROM Appointments, Doctors, Clinics, Users, Reviews
         WHERE [from] >= '${fromdate}' AND [from] <= '${todate}'
         AND Clinics.name LIKE '%${clinic}'
-        AND [status] = 'Done' 
+        AND [status] in ('rejected', 'done') 
         AND Users.userId=${userid}
         AND Doctors.doctorId = Appointments.AppointDoctorId
         AND Clinics.clinicId = AppointClinicId
@@ -123,7 +123,7 @@ function getAppointmentsByDateAndDoctor(fromdate, todate, doctorname, userid){
         FROM Appointments, Doctors, Clinics, Users, Reviews
         WHERE [from] >= '${fromdate}' AND [from] <= '${todate}'
         AND (Doctors.fName+' '+Doctors.lName) LIKE '%${doctorname}%' 
-        AND [status] = 'Done' 
+        AND [status] in ('rejected', 'done') 
         AND Users.userId=${userid}
         AND Doctors.doctorId = Appointments.AppointDoctorId
         AND Clinics.clinicId = AppointClinicId
@@ -145,7 +145,7 @@ function getAppointmentsByDateAndDoctorAndClinic(fromdate, todate, doctor, clini
         AND (Doctors.fName+' '+Doctors.lName) LIKE '%${doctor}%'
         AND Clinics.name LIKE '%${clinic}'
         AND Users.userId=${userid}
-        AND [status] = 'Done' 
+        AND [status] in ('rejected', 'done') 
         AND Doctors.doctorId = Appointments.AppointDoctorId
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
@@ -162,7 +162,7 @@ function getAllAppointmentsD(id){
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
         (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
         FROM Appointments, Doctors, Clinics, Users, Reviews
-        WHERE [status] = 'Done'
+        WHERE [status] in ('rejected', 'done')
         AND Users.userId = Appointments.AppointUserId
         AND Appointments.AppointDoctorId = ${id}
         AND Clinics.clinicId = AppointClinicId
@@ -181,7 +181,7 @@ function getAppointsByClinicD(clinic, doctorId){
         FROM Appointments, Doctors, Clinics, Users, Reviews
         WHERE Doctors.doctorId=${doctorId} 
         AND Clinics.name LIKE '%${clinic}%'
-        AND [status] = 'Done' 
+        AND [status] in ('rejected', 'done') 
         AND Users.userId = Appointments.AppointUserId
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
@@ -198,7 +198,7 @@ function getAppointsByUsername(username, userId) {
         (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
         FROM Appointments, Doctors, Clinics, Users, Reviews
         WHERE (Users.fName+' '+Users.lName) LIKE '%${username}%' 
-        AND [status] = 'Done' 
+        AND [status] in ('rejected', 'done') 
         AND Doctors.doctorId=${userId}
         AND Users.userId = Appointments.AppointUserId
         AND Clinics.clinicId = AppointClinicId
@@ -216,7 +216,7 @@ function getAppointmentsByDateD(fromdate, todate, userId){
         (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
         FROM Appointments, Doctors, Clinics, Users, Reviews
         WHERE [from] >= '${fromdate}' AND [from] <= '${todate}'
-        AND [status] = 'Done' 
+        AND [status] in ('rejected', 'done') 
         AND Doctors.doctorId=${userId}
         AND Users.userId = Appointments.AppointUserId
         AND Clinics.clinicId = AppointClinicId
@@ -236,7 +236,7 @@ function getAppointsByUsernameAndClinic(doctorname, clinic,userId){
         FROM Appointments, Doctors, Clinics, Users, Reviews
         WHERE (Users.fName+' '+Users.lName) LIKE '%${doctorname}%' 
         AND Clinics.name LIKE '%${clinic}%'
-        AND [status] = 'Done' 
+        AND [status] in ('rejected', 'done') 
         AND Doctors.doctorId=${userId}
         AND Users.userId = Appointments.AppointUserId
         AND Clinics.clinicId = AppointClinicId
@@ -255,7 +255,7 @@ function getAppointmentsByDateAndClinicD(fromdate, todate, clinic, userId){
         FROM Appointments, Doctors, Clinics, Users, Reviews
         WHERE [from] >= '${fromdate}' AND [from] <= '${todate}'
         AND Clinics.name LIKE '%${clinic}'
-        AND [status] = 'Done' 
+        AND [status] in ('rejected', 'done') 
         AND Doctors.doctorId=${userId}
         AND Users.userId = Appointments.AppointUserId
         AND Clinics.clinicId = AppointClinicId
@@ -276,7 +276,7 @@ function getAppointmentsByDateAndUser(fromdate, todate, doctorname, userId){
         FROM Appointments, Doctors, Clinics, Users, Reviews
         WHERE [from] >= '${fromdate}' AND [from] <= '${todate}'
         WHERE (Users.fName+' '+Users.lName) LIKE '%${doctorname}%' 
-        AND [status] = 'Done' 
+        AND [status] in ('rejected', 'done') 
         AND Doctors.doctorId=${userId}
         AND Users.userId = Appointments.AppointUserId
         AND Clinics.clinicId = AppointClinicId
@@ -298,7 +298,7 @@ function getAppointmentsByDateAndUserAndClinic(fromdate, todate, doctor, clinic,
         WHERE [from] >= '${fromdate}' AND [from] <= '${todate}'
         AND (Users.fName+' '+Users.lName) LIKE '%${doctor}%'
         AND Clinics.name LIKE '%${clinic}'
-        AND [status] = 'Done' 
+        AND [status] in ('rejected', 'done') 
         AND Doctors.doctorId=${userId}
         AND Users.userId = Appointments.AppointUserId
         AND Clinics.clinicId = AppointClinicId

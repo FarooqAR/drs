@@ -3,16 +3,17 @@ extends ../common/layout
 block style_links
   link(rel='stylesheet', href='/stylesheets/doctor/dashboard.css')
 
+block scripts
+  script(src="/javascripts/doctor/dashboard.js")  
 
 block content
     div#doc_main_container.container
         h2 Dr. #{fullName}
         hr
         include ../common/alert.pug
-        form#filter_appointments_form
+        form#filter_appointments_form(action="/" method="get")
             div.container_flex
-                select#clinics(name="clinic")
-                    option(value="Select Clinic", disabled)
+                select#clinic_input(name="clinic", class="form-control")
                 input#history_btn(
                     type='submit'
                     class='btn btn-primary'
@@ -20,20 +21,24 @@ block content
         div#appointments_body
             div
                 h4 Current Appointments:
-                div.appointments_list.appointments_new
+                div.appointments_list.appointments_current
+                    if currentAppointments.length == 0
+                      div.text_centered No appointments 
                     for app in currentAppointments
-                        a(href="/appointments/" + app.appointmentId)
-                            div.row
-                                div.col-sm-3 #{app.patientFullName}
-                                div.col-sm-3 #{app.clinicName}
-                                div.col-sm-3 #{app.date}, #{app.from} to #{app.to}
+                        a.appointment(href="/appointments/" + app.appointmentId)
+                            div.container_flex
+                                div.flex_3 #{app.patientFullName}
+                                div.flex_3 #{app.clinicName}
+                                div.flex_3 #{app.date}, #{app.from} to #{app.to}
             div
                 h4 New Requests:
                 div.appointments_list.appointments_new
+                    if newAppointments.length == 0
+                      div.text_centered No new requests
                     for app in newAppointments
-                        a(href="/appointments/" + app.appointmentId)
-                            div.row
-                                div.col-sm-3 #{app.patientFullName}
-                                div.col-sm-3 #{app.clinicName}
-                                div.col-sm-3 #{app.date}, #{app.from} to #{app.to}
+                        a.appointment(href="/appointments/" + app.appointmentId)
+                            div.container_flex
+                                div.flex_3 #{app.patientFullName}
+                                div.flex_3 #{app.clinicName}
+                                div.flex_3 #{app.date}, #{app.from} to #{app.to}
             
