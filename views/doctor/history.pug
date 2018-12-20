@@ -13,13 +13,9 @@ block content
             div.container_flex
                 input.flex_2(
                     type="text"
-                    list='doctor_clinics_list', 
                     class="form-control",
                     name="clinic_name", 
                     placeholder="Clinics/Hospitals" )
-                datalist#doctor_clinics_list
-                    for clinic in clinics
-                        option(value=clinic[1]) 
                 input.flex_2(
                     type="text" 
                     class="form-control",
@@ -67,20 +63,17 @@ block content
                             strong #{appointment.userfullname}
                         div.flex_1.text_right
                             strong Date: 
-                            span #{appointment.from.toDateString()}
+                            span #{appointment.date}
                     div.container_flex.my_div
                         div.flex_1
                             strong Clinic/Hospital: 
                             span #{appointment.clinic}
                         div.flex_1.text_right
                             strong From: 
-                            span #{appointment.from.toLocaleTimeString()} 
+                            span #{appointment.from} 
                             strong To: 
-                            span #{appointment.to.toLocaleTimeString()}
+                            span #{appointment.to}
                     div.container_flex.my_div
-                        div.flex_1
-                            strong Rating: 
-                            span #{appointment.rating}/10
                         div.flex_2.text_right
                             a(href="/appointments/" + appointment.id)
-                                button(class="btn btn-primary") 
+                                button(class="btn btn-primary") Details 

@@ -14,3 +14,14 @@
 #appoint_details_container .controls .btn{
   margin: 0 3px;
 }
+.pending
+{
+  color: yellow;
+}
+.done
+{
+  color: greenyellow;
+}
+.rejected {
+  color: #f55262;
+}

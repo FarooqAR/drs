@@ -36,6 +36,7 @@ router.post('/user', function (req, res, next) {
       //session hai jo agar koi cheex loginhogayi tou jab tak browser khula hai yeh open rehega, session mein yeh information saved hai
       //browser bandd karne per yeh sab delete agar session expire hogaya ho
       req.session.user = { id: result[0][0].userId, type: 'user', fName: result[0][0].fName, lName: result[0][0].lName };
+      req.session.save();
       return res.redirect('/settings');
     })
     //warna yahan
@@ -64,6 +65,7 @@ router.post('/doctor', function (req, res, next) {
     })
     .then(function (result) {
       req.session.user = { id: result[0][0].doctorId, type: 'doctor', fName: result[0][0].fName, lName: result[0][0].lName };
+      req.session.save();
       return res.redirect('/settings?new=true');
     })
     .catch(function (err) {

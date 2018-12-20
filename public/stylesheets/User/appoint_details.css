@@ -1,0 +1,9 @@
+#appoint_details_container .review_show_edit_btn{
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+}
+.hide
+{
+  display: none;
+}

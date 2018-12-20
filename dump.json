@@ -323,5 +323,52 @@
       "ClinicDoctorId": 6
     }
     
+  ],
+  "appointments": [
+    {
+      "to": "12/24/2018 10:00",
+      "from": "12/24/2018 10:30",
+      "status": "new",
+      "description": "dard ho rha he",
+      "AppointDoctorId": 3,
+      "AppointUserId": 1,
+      "AppointClinicId": 3
+    },
+    {
+      "to": "12/23/2018 14:00",
+      "from": "12/23/2018 14:30",
+      "status": "new",
+      "description": "bukhaar he bohat",
+      "AppointDoctorId": 2,
+      "AppointUserId": 1,
+      "AppointClinicId": 2
+    },
+    {
+      "to": "12/31/2018 10:00",
+      "from": "12/31/2018 10:30",
+      "status": "new",
+      "description": "dard ho rha he",
+      "AppointDoctorId": 3,
+      "AppointUserId": 1,
+      "AppointClinicId": 3
+    },
+    {
+      "to": "12/31/2018 10:00",
+      "from": "12/31/2018 10:30",
+      "status": "new",
+      "description": "dard ho rha he",
+      "AppointDoctorId": 3,
+      "AppointUserId": 1,
+      "AppointClinicId": 3
+    },
+    {
+      "to": "12/31/2018 10:00",
+      "from": "12/31/2018 10:30",
+      "status": "new",
+      "description": "dard ho rha he",
+      "AppointDoctorId": 3,
+      "AppointUserId": 2,
+      "AppointClinicId": 2
+    }
   ]
 }

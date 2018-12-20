@@ -1,0 +1,59 @@
+extends ../common/layout
+
+block style_links
+  link(rel='stylesheet', href='/stylesheets/user/create_appointment.css')
+
+block scripts
+  script(src="/javascripts/user/create_appointment.js")
+
+block content
+  div#create_appointment_container
+    h3.text_centered Create Appointment
+    div 
+      strong with 
+      a(href="/doctors/"+doctor.doctorId) Dr. #{doctor.fName} #{doctor.lName}
+    div
+      strong at 
+      a(href="/clinics/"+clinic.clinicId) #{clinic.name}
+    div
+      strong Schedule
+      div
+        for timing in timings
+          div.timing
+            span #{timing.day} 
+            span from 
+            span #{timing.to} 
+            span to 
+            span #{timing.from}
+    form#appoint_from(
+      action="/appointments/create/"+doctor.doctorId+"/"+clinic.clinicId, 
+      method="post")
+      -var i = 0;
+      for timing in timings
+        input(type="hidden", name="days", value=timing.day)        
+        input(type="hidden", name="tos", value=timing.to)        
+        input(type="hidden", name="froms", value=timing.from)        
+        - i++ 
+      input(type="hidden", name="fName", value=doctor.fName)
+      input(type="hidden", name="lName", value=doctor.lName)
+      input(type="hidden", name="clinic_name", value=clinic.name)
+      div
+        strong Day
+        input#input_from(type="date", value=date, name="date", class="form-control", required) 
+      div
+        strong From
+        input#input_to(type="time",value=from name="from", class="form-control", required)
+      div
+        strong To
+        input#input_to(type="time",value=to name="to", class="form-control", required)
+      div
+        strong Description
+        input(type="text", name="description",value=description class="form-control", maxlength="255") 
+      div.text_centered
+        button(type="submit", class="btn btn-primary") Create
+    include ../common/alert.pug    
+
+
+
+
+            

@@ -1,0 +1,57 @@
+extends ../common/layout
+
+block style_links
+  link(rel='stylesheet', href='/stylesheets/doctor/appoint_details.css')
+  link(rel='stylesheet', href='/stylesheets/user/appoint_details.css')
+
+block scripts
+  script(src="/javascripts/user/appoint_details.js")
+
+block content
+  div#appoint_details_container
+    table.table.table-bordered.table-dark
+      thead
+        tr
+          th(colspan="2") Appointment Details
+      - const { clinicId, appointmentId, doctorId, reviewId, clinicName, isPast, doctorFullName, from, to, review, rating, status, description, createdAt, date  } = appointment; 
+
+      tbody
+        tr
+          td Created At
+          td #{createdAt}
+        tr
+          td Clinic
+          td 
+            a(href="/clinics/" + clinicId) #{clinicName}   
+        tr
+          td Doctor
+          td 
+            a(href="/doctors/" + doctorId) #{doctorFullName}
+        tr
+          td Date
+          td #{date}    
+        tr
+          td Time
+          td 
+            span #{from} 
+            strong to  
+            span #{to} 
+        tr
+          td Details
+          td 
+            div.further_details #{description} 
+        tr
+          td Status
+          td #{status}  
+        if isPast     
+          tr
+            td 
+              span Review 
+              span.review_show_edit_btn &#9998;	
+            td 
+              div.review_text #{review}
+              div.review_edit_container.hide
+                div 
+                  textarea.review_edit_input(cols="30", rows="5", data-appointmentid=appointmentId, data-reviewid=reviewId) #{review}
+                div
+                  button.save_review_btn.btn.btn-primary Save

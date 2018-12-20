@@ -1,0 +1,11 @@
+#create_appointment_container
+{
+  width: 500px;
+  padding: 20px 0;
+  margin: 0 auto;
+}
+#create_appointment_container > div,
+#create_appointment_container #appoint_from > div
+{
+  margin: 10px auto;
+}

@@ -40,6 +40,13 @@ fetch(`/doctors/${doctorId}/qualifications`, {
     let qualsHtml = '';
     let qualifications = resultJson[0] || [];
     if (qualifications.length > 0) {
+      qualsHtml += `
+          <div class='container_flex'>
+            <span class='flex_2'><strong>College</strong></span>
+            <span class='flex_1'><strong>Degree</strong></span>
+            <span><strong>Year</strong></span>            
+          </div>
+        `;
       qualifications.forEach(qual => {
         qualsHtml += `
           <div class='container_flex'>
@@ -55,3 +62,26 @@ fetch(`/doctors/${doctorId}/qualifications`, {
     document.querySelector('.qualifications').innerHTML = qualsHtml;
   })
   .catch(err => document.querySelector('.qualifications').innerHTML = 'Error loading');
+
+  fetch(`/doctors/${doctorId}/reviews`, {
+    ...fetchConfig,
+    method: 'get'
+  })
+    .then(result => result.json())
+    .then(resultJson => {
+      let reviewsHtml = '';
+      let reviews = resultJson[0] || [];
+      if (reviews.length > 0) {
+        reviews.forEach(review => {
+          reviewsHtml += `
+            <div class='review_container'>
+              <div class="review">${review.text}</div>            
+            </div>
+          `;
+        });
+      }
+      else
+        reviewsHtml = 'No reviews';
+      document.querySelector('.reviews').innerHTML = reviewsHtml;
+    })
+    .catch(err => document.querySelector('.qualifications').innerHTML = 'Error loading');

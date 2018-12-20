@@ -23,6 +23,12 @@ function getDoctorClinics(doctorId) {
   );
 }
 
+function getDoctorReviews(doctorId) {
+  return db.query(
+    `SELECT text from Appointments, Reviews 
+    where AppointReviewId=reviewId and AppointDoctorId=${doctorId}`, 
+  );
+}
 function getDoctorQualifications(doctorId) {
   return db.query(
     `SELECT c.name as college, d.name as degree, year  
@@ -42,5 +48,6 @@ module.exports = {
   getMatchingDoctor,
   getDoctorById,
   getDoctorClinics,
-  getDoctorQualifications
+  getDoctorQualifications,
+  getDoctorReviews
 };

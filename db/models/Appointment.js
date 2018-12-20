@@ -7,10 +7,6 @@ const Appointment = db.define('Appointment', {
     primaryKey: true,
     autoIncrement: true
   },
-  day: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
   to: {
     type: Sequelize.DATE,
     allowNull: false
@@ -39,9 +35,8 @@ const Appointment = db.define('Appointment', {
     allowNull: false,
   },
   AppointReviewId: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
+    type: Sequelize.INTEGER
   }
-}, {timestamps: false});
+},{timestamps:true, updatedAt:false});
 
 module.exports = Appointment;

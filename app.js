@@ -14,6 +14,7 @@ const qualRouter = require('./routes/qualification');
 const roleRouter = require('./routes/roles');
 const timingsRouter = require('./routes/timing');
 const affiliationRouter = require('./routes/affiliation');
+const reviewRouter = require('./routes/user/review');
 const doctorSettingsRouter = require('./routes/doctor/settings');
 const doctorDashboardRouter = require('./routes/doctor/dashboard');
 const doctorAppointmentsRouter = require('./routes/doctor/appointments');
@@ -24,6 +25,8 @@ const doctorsForUsersRouter = require('./routes/user/doctors');
 const clinicsForUsersRouter = require('./routes/user/clinics');
 const userSettingsRouter = require('./routes/user/settings');
 const userHistoryRouter = require('./routes/user/history');
+const userAppointmentsRouter = require('./routes/user/appointments');
+
 const app = express();
 
 db.authenticate()
@@ -89,7 +92,11 @@ app.use('/settings', function (req, res, next) {
   userSettingsRouter(req, res, next);
 });
 
-app.use('/appointments', doctorAppointmentsRouter);
+app.use('/appointments', function (req, res, next) {
+  if (req.session.user && req.session.user.type == 'doctor')
+    return doctorAppointmentsRouter(req, res, next)
+  userAppointmentsRouter(req, res, next);
+});
 
 app.use('/clinics', function (req, res, next) {
   if (req.session.user && req.session.user.type == 'doctor')
@@ -111,6 +118,11 @@ app.use('/qualification', qualRouter);
 app.use('/roles', roleRouter);
 app.use('/timings', timingsRouter);
 app.use('/affiliations', affiliationRouter);
+app.use('/reviews', function (req, res, next) {
+  if (req.session.user && req.session.user.type == 'user')
+    return reviewRouter(req, res, next)
+  next();
+});
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

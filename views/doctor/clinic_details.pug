@@ -9,26 +9,14 @@ block content
       thead
         tr
           th(colspan="2") Clinic/Hospital Details
-      - const id = clinic[0]; 
-      - const clinic_name = clinic[1]; 
-      - const role = clinic[2]; 
-      - const lat = clinic[3]; 
-      - const long = clinic[4]; 
-      - const joined_on = clinic[5]; 
       tbody
         tr
           td Name
-          td #{clinic_name}   
-        tr
-          td Joined on
-          td #{joined_on}
+          td #{clinic.name}   
         tr
           td Role
-          td #{role} 
+          td #{clinic.role} 
         tr
           td Location
           td 
-            a(href="#") View 
-            
-    div.controls.text_centered
-      button.btn.btn-danger Remove yourself from this clinic
+            iframe(width="400" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=" + clinic.lat + "," + clinic.long + "&key="+ process.env.GOOGLE_MAPS_API_KEY, allowfullscreen)

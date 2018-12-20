@@ -12,3 +12,7 @@
 #doctor_details_container .card-header:hover{
   color: var(--primary);
 }
+#doctor_details_container .review {
+  font-style: italic;
+  margin-bottom: 1em;
+}
