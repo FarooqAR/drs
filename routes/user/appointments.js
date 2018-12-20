@@ -9,6 +9,19 @@ const utils = require('../../util');
 const appointGetHandler = require('../appointments');
 const router = express.Router();
 
+router.get('/', async function (req, res, next) {
+  try {
+    var appointments = await appointDbService.getCurrentAppointmentsByUser(req.session.user.id);
+    appointments = normalizeAppointments(appointments);
+    res.render('user/appointments', {
+      fullName: req.session.user.fName + ' ' + req.session.user.lName,
+      user: req.session.user,
+      appointments
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
 router.get('/:appointmentId', appointGetHandler);
 
 router.get('/create/:doctorId/:clinicId', async function (req, res, next) {
@@ -100,6 +113,16 @@ router.post('/create/:doctorId/:clinicId', async function (req, res, next) {
   }
 
 });
+function normalizeAppointments(appointments) {
+  return appointments.map(appointment => {
+    appointment.from.setHours(appointment.from.getHours() - 5);
+    appointment.to.setHours(appointment.to.getHours() - 5);
+    appointment.date = appointment.from.toDateString();
+    appointment.from = utils.formatAMPM(appointment.from);
+    appointment.to = utils.formatAMPM(appointment.to);
+    return appointment;
+  })
+}
 function serializeTimings(days, tos, froms) {
   return days.map((day, i) => ({ day, to: tos[i], from: froms[i] }))
 }

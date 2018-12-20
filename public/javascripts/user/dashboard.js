@@ -22,8 +22,8 @@ var filterAlert = document.querySelector(".alert");
 var fetchConfig = {
   method: 'post',
   headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
   },
 };
 
@@ -32,171 +32,170 @@ var map;
 var markers = [];
 
 function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     zoom: 8,
-    center: {lat: 24.8607, lng:  67.0011}
-    });
+    center: { lat: 24.8607, lng: 67.0011 }
+  });
 }
 
-function addPlaces(filters){
-    /* fetch func */
-    fetch('/clinics', {
-      ...fetchConfig,
-      body: JSON.stringify( filters )
-    })
+function addPlaces(filters) {
+  /* fetch func */
+  fetch('/clinics', {
+    ...fetchConfig,
+    body: JSON.stringify(filters)
+  })
     .then(result => result.json())
     .then(resultJson => {
-      if (resultJson.length != 0){
+      if (resultJson.length != 0) {
         locations = resultJson;
         // get the list, pass to function to set markers
         placeMarkers(locations);
       }
-      else{
+      else {
         showAlert('We\'re sorry, we couldn\'t find anything that suits your requirements.')
       }
     })
     .catch(err => showAlert(err));
 }
 
-function placeMarkers(locations){
-    var bounds = new google.maps.LatLngBounds();
-    var pos;
-    var place;
+function placeMarkers(locations) {
+  var bounds = new google.maps.LatLngBounds();
+  var pos;
+  var place;
 
-    // clear pre-existing markers
-    clearMarkers();
+  // clear pre-existing markers
+  clearMarkers();
 
-    for (i = 0; i < locations.length; i++){
-      pos = new google.maps.LatLng(locations[i][1], locations[i][2]);
-      place = locations[i][0];
+  for (i = 0; i < locations.length; i++) {
+    pos = new google.maps.LatLng(locations[i][1], locations[i][2]);
+    place = locations[i][0];
+    markers[i] = new google.maps.Marker({
+      map: map,
+      draggable: false,
+      animation: google.maps.Animation.DROP,
+      position: pos
+    });
 
-      markers[i] = new google.maps.Marker({
-        map: map,
-        draggable: false,
-        animation: google.maps.Animation.DROP,
-        position: pos
-      });
+    createInfoWindow(markers[i], place);
 
-      createInfoWindow(markers[i], place);
-      
-      bounds.extend(pos); // extend map bounds to fit location
-      markers[i].setMap(map); // set marker onto map
-    }
+    bounds.extend(pos); // extend map bounds to fit location
+    markers[i].setMap(map); // set marker onto map
+  }
 
-    map.fitBounds(bounds);
+  map.fitBounds(bounds);
 }
 
-function clearMarkers(){
+function clearMarkers() {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(null);
   }
   markers = [];
 }
 
-function createInfoWindow(marker, place){
-  google.maps.event.addListener(marker,'click', function() {
+function createInfoWindow(marker, place) {
+  google.maps.event.addListener(marker, 'click', function () {
     infoWindow = new google.maps.InfoWindow();
-    infoWindow.setContent('<div><strong>'+place+'</div>');
+    infoWindow.setContent('<a href="#">' + place + '</a>');
     infoWindow.open(map, this);
   });
 }
 
-doctor_checkbox.addEventListener('change', function(e){
-  if (doctor_checkbox.checked){
-    doctor_checkboxCLICKED = true;  
+doctor_checkbox.addEventListener('change', function (e) {
+  if (doctor_checkbox.checked) {
+    doctor_checkboxCLICKED = true;
     console.log('doc_clicked')
     // since doctor specified, role becomes apparent
-    if (doctor_role_checkbox.disabled == false || clinics_checkbox.disabled == false){
+    if (doctor_role_checkbox.disabled == false || clinics_checkbox.disabled == false) {
       doctor_role_checkbox.disabled = true;
       clinics_checkbox.disabled = true;
     }
   }
-  else{
+  else {
     doctor_checkboxCLICKED = false;
-    if (doctor_role_checkbox.disabled || clinics_checkbox.disabled){
+    if (doctor_role_checkbox.disabled || clinics_checkbox.disabled) {
       doctor_role_checkbox.disabled = false;
       clinics_checkbox.disabled = false;
     }
   }
 })
 
-doctor_role_checkbox.addEventListener('change', function(e){
-  if (doctor_role_checkbox.checked){
+doctor_role_checkbox.addEventListener('change', function (e) {
+  if (doctor_role_checkbox.checked) {
     doctor_role_checkboxCLICKED = true;
     console.log('rol_clicked')
     // since role specified, doctor becomes apparent
-    if (doctor_checkbox.disabled == false){
+    if (doctor_checkbox.disabled == false) {
       doctor_checkbox.disabled = true;
     }
   }
-  else{
+  else {
     doctor_role_checkboxCLICKED = false;
-    if (doctor_checkbox.disabled){
+    if (doctor_checkbox.disabled) {
       doctor_checkbox.disabled = false;
     }
   }
 })
 
-clinics_checkbox.addEventListener('change', function(e){
-  if (clinics_checkbox.checked){
+clinics_checkbox.addEventListener('change', function (e) {
+  if (clinics_checkbox.checked) {
     clinics_checkboxCLICKED = true;
     console.log('clin_clicked');
-    if (doctor_checkbox.disabled == false){
+    if (doctor_checkbox.disabled == false) {
       doctor_checkbox.disabled = true;
     }
   }
-  else{
+  else {
     clinics_checkboxCLICKED = false;
-    if (doctor_checkbox.disabled){
+    if (doctor_checkbox.disabled) {
       doctor_checkbox.disabled = false;
     }
   }
 })
 
-date_checkbox.addEventListener('change', function(e){
-  if (date_checkbox.checked){
+date_checkbox.addEventListener('change', function (e) {
+  if (date_checkbox.checked) {
     console.log('date_clicked')
     date_checkboxCLICKED = true;
   }
-  else{
+  else {
     date_checkboxCLICKED = false;
   }
 })
 
-function filter_search(){
-  if ((doctor_checkboxCLICKED && doctors_input.value.length == 0) || 
-        (clinics_checkboxCLICKED && clinics_input.value.length == 0) ||
-        (doctor_role_checkboxCLICKED && roles_input.value.length == 0) ||
-        (date_checkboxCLICKED && date_input.value.length == 0)){
-          showAlert('One or more required fields missing.');
-    }
-  else{
+function filter_search() {
+  if ((doctor_checkboxCLICKED && doctors_input.value.length == 0) ||
+    (clinics_checkboxCLICKED && clinics_input.value.length == 0) ||
+    (doctor_role_checkboxCLICKED && roles_input.value.length == 0) ||
+    (date_checkboxCLICKED && date_input.value.length == 0)) {
+    showAlert('One or more required fields missing.');
+  }
+  else {
     hideAlert();
     var filters = [];
 
-      // add selections
-    if (clinics_checkboxCLICKED){
+    // add selections
+    if (clinics_checkboxCLICKED) {
       filters.push(clinics_input.value);
     }
-    else{
+    else {
       filters.push(false);
     }
-    if (doctor_checkboxCLICKED){
+    if (doctor_checkboxCLICKED) {
       filters.push(doctors_input.value);
     }
-    else{
+    else {
       filters.push(false);
     }
-    if (doctor_role_checkboxCLICKED){
+    if (doctor_role_checkboxCLICKED) {
       filters.push(roles_input.value);
     }
-    else{
+    else {
       filters.push(false);
     }
-    if (date_checkboxCLICKED){
+    if (date_checkboxCLICKED) {
       filters.push(date_input.value);
     }
-    else{
+    else {
       filters.push(false);
     }
     addPlaces(filters);

@@ -1,0 +1,22 @@
+extends ../common/layout
+
+block style_links
+  link(rel='stylesheet', href='/stylesheets/doctor/dashboard.css')
+
+block scripts
+  script(src="/javascripts/doctor/dashboard.js")  
+
+block content
+    div#doc_main_container.container
+        h2 Current Appointments        
+        div#appointments_body
+          div
+            div.appointments_list.appointments_current
+              if appointments.length == 0
+                div.text_centered No appointments 
+              for app in appointments
+                a.appointment(href="/appointments/" + app.appointmentId)
+                  div.container_flex
+                    div.flex_3 #{app.doctorFullName}
+                    div.flex_3 #{app.clinicName}
+                    div.flex_3 #{app.date}, #{app.from} to #{app.to}          

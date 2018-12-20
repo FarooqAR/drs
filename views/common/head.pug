@@ -10,6 +10,9 @@ header
       span Doctor Rating System
     if user
       div.nav_links
+        if user.type == 'user'
+          a(href="/appointments")
+            span Appointments  
         a(href="/history")
           span History
         a(href="/settings")

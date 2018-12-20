@@ -2,6 +2,19 @@ const Sequelize = require('sequelize');
 const db = require('../');
 const Appointment = require('../models/Appointment');
 
+function getCurrentAppointmentsByUser(userId) {
+  let query = `SELECT appointmentId, Clinics.name as clinicName,(fName+' '+lName) as doctorFullName, [from],[to], [status]
+  FROM Appointments, Clinics, Doctors
+  WHERE [status] in ('pending', 'new')
+  AND clinicId = AppointClinicId 
+  AND doctorId = AppointDoctorId
+  AND AppointUserId = ${userId}`;
+  
+  return db.query(
+    query, { type: Sequelize.QueryTypes.SELECT }
+  );
+}
+
 function getCurrentAppointments(clinicId, doctorId) {
   let query = `SELECT appointmentId, Clinics.name as clinicName,(Users.fName+' '+Users.lName) as patientFullName, [from],[to], [status]
   FROM Appointments, Clinics, Users
@@ -70,5 +83,6 @@ module.exports = {
   create,
   get,
   changeStatus,
-  getCurrentAppointments
+  getCurrentAppointments,
+  getCurrentAppointmentsByUser
 };

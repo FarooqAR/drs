@@ -44,7 +44,6 @@ router.get('/', function (req, res, next) {
 
 router.post('/clinics', function (req, res, next) {
   const [ clinic, doctor, role, date ] = req.body;
-  console.log(req.body);
   var set;
   // create js formatted date if available
   if (date){

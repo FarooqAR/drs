@@ -20,6 +20,7 @@ a.appointment{
     background-color: rgba(0,0,0,0.03);
     display: block;
     padding: 10px;
+    margin-bottom: 3px;
 }
 a.appointment:hover{
     background-color: rgba(0,0,0,0.05);
