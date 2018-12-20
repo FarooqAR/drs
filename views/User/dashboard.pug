@@ -1,5 +1,89 @@
 extends ../common/layout
 
+block style_links
+  link(rel='stylesheet', href='/stylesheets/user/dashboard.css')
+
+block scripts
+  script(async defer src="https://maps.googleapis.com/maps/api/js?key=" + process.env.GOOGLE_MAPS_API_KEY + "&libraries=places&callback=initMap")
+  script(src="/javascripts/user/dashboard.js")
 
 block content 
-  div User dashboard
+  div
+    h3 Welcome, #{user.fName}!
+  .filter
+    h6 Filter Search:
+    form(action="/", method="post")
+      div.checkbox
+            input(type = "checkbox"
+                    value = ""
+                    name = "filter_clinics"
+                    data-toggle="collapse" 
+                    data-target="#filter_clinics") 
+            | By Clinics
+      div#filter_clinics.collapse
+        input#options(
+                    list='clinics_list', 
+                    class="form-control",
+                    name="search_clinics", 
+                    placeholder="Clinics..." )
+        datalist#clinics_list
+                    for clinic in clinics
+                        option(value=clinic[0])  
+      
+      div.checkbox
+            input(type = "checkbox"
+                    value = ""
+                    name = "filter_doctors"
+                    data-toggle="collapse" 
+                    data-target="#filter_doctors") 
+            | By Doctors
+      div#filter_doctors.collapse
+        input#options(
+                    list='doctors_list', 
+                    class="form-control",
+                    name="search_doctors", 
+                    placeholder="Doctors..." )
+        datalist#doctors_list
+                    for doctor in doctors
+                        option(value=doctor[1]) 
+      div.checkbox
+            input(type = "checkbox"
+                    value = ""
+                    name = "filter_doctor_role"
+                    data-toggle="collapse" 
+                    data-target="#filter_doctor_role") 
+            | By Doctor Specialization
+      div#filter_doctor_role.collapse
+        input#options(
+                    list='roles_list', 
+                    class="form-control",
+                    name="search_roles", 
+                    placeholder="Specialists..." )
+        datalist#roles_list
+                    for role in roles
+                        option(value=role) 
+      .checkbox
+            input(type = "checkbox"
+                    value = ""
+                    name = "filter_date"
+                    data-toggle="collapse" 
+                    data-target="#filter_date") 
+            | By Date
+      div#filter_date.collapse
+        input#options(
+                    type='date',
+                    name='select_date',
+                    class="form-control",
+                    placeholder="MM/DD/YY" )
+
+    input(type = "submit"
+          class = "btn btn-primary"
+          id = "search_btn"
+          value = "Find Me Doctors!"
+          onclick = "filter_search()")   
+
+
+
+          
+  include ../common/alert.pug
+  div#map
