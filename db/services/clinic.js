@@ -25,11 +25,11 @@ function getClinicByDoctorId(clinicId, doctorId) {
 }
 
 function getClinicByName(name){
-return db.query(`SELECT name, lat, long FROM Clinics WHERE name like '%${name}%'`, {type:Sequelize.QueryTypes.SELECT})
+return db.query(`SELECT name, lat, long, clinicId FROM Clinics WHERE name like '%${name}%'`, {type:Sequelize.QueryTypes.SELECT})
 }
 
 function getDoctorClinics(doctorId){
-  return db.query(`SELECT Clinics.name, lat, long
+  return db.query(`SELECT Clinics.name, lat, long, Clinics.clinicId
   FROM DoctorClinics, Doctors, Clinics
   WHERE DoctorClinics.DoctorId = Doctors.doctorId
     and DoctorClinics.ClinicId = Clinics.clinicId
@@ -37,7 +37,7 @@ function getDoctorClinics(doctorId){
 }
 
 function getRoleClinics(role){
-  return db.query(`SELECT fName, lName, Doctors.doctorId, Clinics.name, lat, long
+  return db.query(`SELECT fName, lName, Doctors.doctorId, Clinics.name, lat, long, Clinics.clinicId
   FROM DoctorClinics, Roles, Doctors, Clinics
   WHERE roleId = DoctorRoleId
       and doctors.doctorid = doctorclinics.DoctorId
@@ -53,7 +53,7 @@ function getClinicDoctors(clinicId) {
 }
 
 function getDayClinics(day){
-  return db.query(`SELECT fName, lName, Clinics.name, Doctors.doctorId, lat, long
+  return db.query(`SELECT fName, lName, Clinics.name, Doctors.doctorId, lat, long, Clinics.clinicId
   FROM DoctorTimings, DoctorClinics, Doctors, Clinics
   WHERE [day] = '${day}'
       and doctorClinics.doctorClinicid = clinicDoctorId
@@ -62,7 +62,7 @@ function getDayClinics(day){
 }
 
 function getRole_ClinicClinics(role, clinic){
-  return db.query(`SELECT fName, lName, Clinics.name, lat, long, Doctors.doctorId
+  return db.query(`SELECT fName, lName, Clinics.name, lat, long, Doctors.doctorId, Clinics.clinicId
   FROM DoctorClinics, Doctors, Roles, Clinics
   WHERE DoctorClinics.DoctorId = Doctors.doctorId
       and DoctorRoleId = roleId
@@ -72,7 +72,7 @@ function getRole_ClinicClinics(role, clinic){
 }
 
 function getRole_DayClinics(role, day){
-  return db.query(`SELECT fName, lName, Clinics.name, Doctors.doctorId, lat, long
+  return db.query(`SELECT fName, lName, Clinics.name, Doctors.doctorId, lat, long, Clinics.clinicId
   FROM DoctorClinics, Doctors, Roles, Clinics, DoctorTimings
   WHERE DoctorClinics.DoctorId = Doctors.doctorId
       and doctorClinicId = ClinicDoctorId
@@ -83,7 +83,7 @@ function getRole_DayClinics(role, day){
 }
 
 function getClinic_DayClinics(day, clinic){
-  return db.query(`SELECT fName, lName, Clinics.name, Doctors.doctorId, lat, long
+  return db.query(`SELECT fName, lName, Clinics.name, Doctors.doctorId, lat, long, Clinics.clinicId
   FROM DoctorClinics, Doctors, Roles, Clinics, DoctorTimings
   WHERE DoctorClinics.DoctorId = Doctors.doctorId
       and doctorClinicId = ClinicDoctorId
@@ -94,7 +94,7 @@ function getClinic_DayClinics(day, clinic){
 }
 
 function getDoctor_DayClinics(day, doctor){
-  return db.query(`SELECT fName, lName, Clinics.name, lat, long
+  return db.query(`SELECT fName, lName, Clinics.name, lat, long, Clinics.clinicId
   FROM DoctorClinics, Doctors,Clinics, DoctorTimings
   WHERE DoctorClinics.DoctorId = Doctors.doctorId
       and doctorClinicId = ClinicDoctorId
@@ -104,7 +104,7 @@ function getDoctor_DayClinics(day, doctor){
 }
 
 function getRole_Clinic_DayClinics(role, clinic, day){
-  return db.query(`SELECT fName, lName, Clinics.name, Doctors.doctorId, lat, long
+  return db.query(`SELECT fName, lName, Clinics.name, Doctors.doctorId, lat, long, Clinics.clinicId
   FROM DoctorClinics, Doctors, Roles, Clinics, DoctorTimings
   WHERE DoctorClinics.DoctorId = Doctors.doctorId
       and doctorClinicId = ClinicDoctorId

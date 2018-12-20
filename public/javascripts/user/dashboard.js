@@ -62,6 +62,7 @@ function placeMarkers(locations) {
   var bounds = new google.maps.LatLngBounds();
   var pos;
   var place;
+  var placeId;
 
   // clear pre-existing markers
   clearMarkers();
@@ -69,6 +70,7 @@ function placeMarkers(locations) {
   for (i = 0; i < locations.length; i++) {
     pos = new google.maps.LatLng(locations[i][1], locations[i][2]);
     place = locations[i][0];
+    placeId = locations[i][3];
     markers[i] = new google.maps.Marker({
       map: map,
       draggable: false,
@@ -76,7 +78,7 @@ function placeMarkers(locations) {
       position: pos
     });
 
-    createInfoWindow(markers[i], place);
+    createInfoWindow(markers[i], place, placeId);
 
     bounds.extend(pos); // extend map bounds to fit location
     markers[i].setMap(map); // set marker onto map
@@ -92,10 +94,10 @@ function clearMarkers() {
   markers = [];
 }
 
-function createInfoWindow(marker, place) {
+function createInfoWindow(marker, place, placeId) {
   google.maps.event.addListener(marker, 'click', function () {
     infoWindow = new google.maps.InfoWindow();
-    infoWindow.setContent('<a href="#">' + place + '</a>');
+    infoWindow.setContent('<a href="clinics/'+placeId+'">' + place + '</a>');
     infoWindow.open(map, this);
   });
 }

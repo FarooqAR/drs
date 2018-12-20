@@ -11,6 +11,7 @@ const fetchConfig = {
     'Content-Type': 'application/json'
   },
 };
+
 const alertHidden = [true, true]; // [alertQualHidden, alertClinicHidden]
 fetchAndRenderColleges();
 fetchAndRenderDegrees();
@@ -303,6 +304,7 @@ function fetchAndRenderAffiliations() {
     .then(affiliations => {
       const clinicsList = document.querySelector('.clinics_list');
       let html = '';
+      console.log(affiliations);
       affiliations.forEach(aff => {
         html += `
         <div class="clinic">
