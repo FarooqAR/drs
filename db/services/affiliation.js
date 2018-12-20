@@ -9,7 +9,7 @@ function addAffiliation(aff) {
       bind: [aff.doctorId, aff.clinicId, aff.roleId] });
 }
 function getAffiliation(doctorId) {
-  return db.query(`SELECT doctorClinicId, cl.name as clinic, r.name as role 
+  return db.query(`SELECT doctorClinicId, cl.clinicId, cl.name as clinic, r.name as role 
    from DoctorClinics dc, Clinics cl, Roles r
    where dc.DoctorId=${doctorId} and dc.ClinicId=cl.clinicId and dc.DoctorRoleId=r.roleId 
   `,

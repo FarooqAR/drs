@@ -57,6 +57,8 @@ block content
                 option(value=1) Ascending
                 option(value=2) Descending
         div.history_list
+            if appointments.length == 0
+                div.text_centered Nothing to show
             for appointment in appointments
                 div.appointment
                     div.container_flex.my_div
