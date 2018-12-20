@@ -38,6 +38,7 @@ router.post('/doctor', function (req, res, next) {
    if (result.length == 1) {
      //console.log(result[0]);
      req.session.user = { id: result[0].doctorId, type: 'doctor', fName: result[0].fName, lName: result[0].lName };
+     req.session.save();
      return res.redirect('/');
    }
    res.render('login', { type: 'doctor', error: 'Invalid Credentials', username });
@@ -54,6 +55,7 @@ router.post('/user', function (req, res, next) {
   userDbService.getMatchingUser(username, password).then(result => {
     if (result.length == 1) {
       req.session.user = { id: result[0].userId, type: 'user', fName: result[0].fName, lName: result[0].lName };
+      req.session.save();
       return res.redirect('/');
     }
     res.render('login', { type: 'user', error: 'Invalid Credentials', username });

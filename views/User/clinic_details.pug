@@ -17,7 +17,7 @@ block content
         #collapseOne.collapse.show(aria-labelledby='headingOne', data-parent='#accordionExample')
           .card-body
             div #{clinic.address}
-            iframe(src="https://www.google.com/maps/embed?lat=" + clinic.lat + ",long=" + clinic.long + "15z", width="300" frameborder="0")
+            iframe(width="400" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=" + clinic.lat + "," + clinic.long + "&key="+ process.env.GOOGLE_MAPS_API_KEY,allowfullscreen)
       .card
         #headingOne.card-header(data-toggle='collapse', data-target='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
           h5.mb-0 Doctors

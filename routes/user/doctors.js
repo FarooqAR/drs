@@ -35,5 +35,13 @@ router.get('/:id/qualifications', function (req, res, next) {
     })
     .catch((err) => res.send({ error: err }))
 });
+router.get('/:id/reviews', function (req, res, next) {
+  const id = req.params.id;
+  doctorDbService.getDoctorReviews(id)
+    .then(result => {
+      res.send(result);
+    })
+    .catch((err) => res.send({ error: err }))
+});
 
 module.exports = router;

@@ -15,6 +15,13 @@ function getAffiliation(doctorId) {
   `,
     { type: Sequelize.QueryTypes.SELECT });
 }
+function isAffiliated(doctorId, clinicId) {
+  return db.query(`SELECT doctorClinicId
+   from DoctorClinics
+   where DoctorId=${doctorId} and ClinicId=${clinicId}
+  `,
+    { type: Sequelize.QueryTypes.SELECT });
+}
 function deleteAffiliations(doctorClinicId) {
   return db.query(`DELETE FROM DoctorClinics WHERE doctorClinicId=${doctorClinicId}
   `,
@@ -23,5 +30,6 @@ function deleteAffiliations(doctorClinicId) {
 module.exports = {
   addAffiliation,
   getAffiliation,
+  isAffiliated,
   deleteAffiliations
 };
