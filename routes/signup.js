@@ -19,20 +19,26 @@ router.get('/user', function (req, res, next) {
 });
 
 router.post('/user', function (req, res, next) {
-  const { fname, lname, username, password, cpassword } = req.body;
-  if (fname && lname && username && password && cpassword) {
-    if (password != cpassword) {
+  const { fname, lname, username, password, cpassword } = req.body;//create user ke liey info li
+  if (fname && lname && username && password && cpassword) { // if valid 
+    if (password != cpassword) { //if password diff tou wapis sign up kholdo
       return res.render('user/signup', { type: 'user', error: 'Password didnt match', fname, lname, username });
-    }
+    }//if password is create
     userDbService.createUserWithoutLocation({
-      ...req.body,
+      ...req.body,//yaha nper user name password form submit karne se araha hai
       fname: util.capitalize(fname), 
       lname: util.capitalize(lname)
+      //yahan user create horaha hai
     })
+
+    //agar hogaya tou yahan
     .then(function (result) {
+      //session hai jo agar koi cheex loginhogayi tou jab tak browser khula hai yeh open rehega, session mein yeh information saved hai
+      //browser bandd karne per yeh sab delete agar session expire hogaya ho
       req.session.user = { id: result[0][0].userId, type: 'user', fName: result[0][0].fName, lName: result[0][0].lName };
       return res.redirect('/settings');
     })
+    //warna yahan
     .catch(function (err) {
       let msg = 'Couldn\'t sign up. An unknown error occurred';
       if (err.name == errors.UNIQUE_CONSTRAINT_ERROR )

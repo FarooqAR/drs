@@ -36,6 +36,7 @@ router.post('/doctor', function (req, res, next) {
   
   doctorDbService.getMatchingDoctor(username, password).then(result => {
    if (result.length == 1) {
+     //console.log(result[0]);
      req.session.user = { id: result[0].doctorId, type: 'doctor', fName: result[0].fName, lName: result[0].lName };
      return res.redirect('/');
    }
