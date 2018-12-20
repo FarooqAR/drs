@@ -1,6 +1,6 @@
 var express = require('express');
+const appointmentsDbService = require('../../db/services/appointments');
 var router = express.Router();
-
 const doctorClinics = [
     [
       "0", "Indus Hospital", "General Physician",
@@ -16,51 +16,152 @@ const doctorClinics = [
       ]
     ]
   ];
- const appointments = [
-    ['1', 'Civil Hospital', 'Hiba Jamal', 'Nov 8, 2018', '04:55', '05:30', 
-    "done", "01:00", '1'],
-    ['2', "Indus Hospital", "Faizan Boi", 'Apr 27, 2019', "04:55", "05:30", 
-        "done", "12:00", "10"],
-    ['3', "AKUH", "Kainat Boi", "Apr 28, 2019", "04:55", "05:30", 
-    "done", "12:00", "9"],
-    ['4', "Parklane", "Noosha Boi", "Apr 29, 2019", "04:55", "05:30", 
-    "done", "12:00", "7"],
-    ['5', "Kiran Hospital", "Leena Boi", "Apr 30, 2019", "04:55", "05:30", 
-    "done", "12:00", "8"],
-    ['6', "Kiran Hospital", "Sameer Boi", "Oct 25, 2018", "04:55", "05:30", 
-    "done", "12:00", "8"]
-  ]
 
   router.get('/', function (req, res, next) {
-    renderView(res, {
-      fullName: req.session.user.fName + ' ' + req.session.user.lName,
-      user: req.session.user
-    });
+    appointmentsDbService.getAllAppointmentsD(req.session.user.id)
+    .then(function (result) {
+      renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result });
+    })
   });
 
   router.post('/', function (req, res, next) {
-    res.send(appointments);
+  //res.send(appointments);
+  const { clinic_name, patient_name, date_from, date_to } = req.body;
+  var from = new Date(date_from);
+  var to = new Date(date_to);
+  console.log(from);
+  console.log(to);
+    //getAppointsByClinic,
+
+  console.log(from.getTime());
+  if ((clinic_name && clinic_name.trim() != '') && isNaN(from.getTime()) && isNaN(to.getTime()) && (!patient_name || patient_name.trim() == '')) {
+    appointmentsDbService.getAppointsByClinicD(clinic_name, req.session.user.id)
+      .then(result => {
+        if (result.length > 0)
+          renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result });
+        else
+        appointmentsDbService.getAllAppointmentsD(req.session.user.id)
+          .then(function (result) {
+            renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result, error: 'No results found for the desired clinic.' });
+            console.log(result);
+          })
+      })
+  }
+  //getAppointsByDoctorname,
+
+  else if ((patient_name && patient_name.trim() != '') && isNaN(from.getTime()) && isNaN(to.getTime()) && (!clinic_name || clinic_name.trim() == '')) {
+    appointmentsDbService.getAppointsByUsername(patient_name, req.session.user.id)
+      .then(result => {
+        if (result.length > 0)
+          renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result });
+        else
+        appointmentsDbService.getAllAppointmentsD(req.session.user.id)
+          .then(function (result) {
+            renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result, error: 'No results found for the desired patient.' });
+            console.log(result);
+          })
+      })
+  }
+
+    //getAppointmentsByDate,
+
+
+  else if ((!patient_name && patient_name.trim() == '') && from.getTime()>5 && to.getTime()>5 && (!clinic_name || clinic_name.trim() == '')) {
+    console.log("date wali condition.")
+    appointmentsDbService.getAppointmentsByDateD(from.toISOString(), to.toISOString(), req.session.user.id)
+      .then(result => {
+
+        if (result.length > 0)
+          renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result });
+        else
+        appointmentsDbService.getAllAppointmentsD(req.session.user.id)
+          .then(function (result) {
+            renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result, error: 'No results found between the provided dates.' });
+            console.log(result);
+          })
+      })
+  }
+
+    //getAppointsByDoctornameAndClinic,
+  
+  else if ((patient_name && patient_name.trim() != '') && isNaN(from.getTime()) && isNaN(to.getTime()) && (clinic_name && clinic_name.trim() != '')) {
+    appointmentsDbService.getAppointsByUsernameAndClinic(patient_name, clinic_name, req.session.user.id)
+      .then(result => {
+        if (result.length > 0)
+          renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result });
+        else
+        appointmentsDbService.getAllAppointmentsD(req.session.user.id)
+          .then(function (result) {
+            renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result, error: 'No results found for the desired clinic and patient.' });
+            console.log(result);
+          })
+      })
+  }
+
+    //getAppointmentsByDateAndClinic,
+
+  else if ((!patient_name || patient_name.trim() == '') && from.getTime() && to.getTime() && (clinic_name && clinic_name.trim() != '')) {
+    appointmentsDbService.getAppointmentsByDateAndClinicD(from.toISOString(), to.toISOString(), clinic_name, req.session.user.id)
+      .then(result => {
+        if (result.length > 0)
+          renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result });
+        else
+        appointmentsDbService.getAllAppointmentsD(req.session.user.id)
+          .then(function (result) {
+            renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result, error: 'No results found for the desired clinic between the given dates.' });
+            console.log(result);
+          })
+      })
+  }
+
+    //getAppointmentsByDateAndDoctor,
+
+  else if ((patient_name && patient_name.trim() != '') && from.getTime() && to.getTime() && (!clinic_name || clinic_name.trim() == '')) {
+    appointmentsDbService.getAppointmentsByDateAndUser(from.toISOString(), to.toISOString(), patient_name, req.session.user.id)
+      .then(result => {
+        if (result.length > 0)
+          renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result });
+        else
+        appointmentsDbService.getAllAppointmentsD(req.session.user.id)
+          .then(function (result) {
+            renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result, error: 'No results found for the desired patient between the given dates.' });
+            console.log(result);
+          })
+      })
+  }
+
+    //getAppointmentsByDateAndDoctorAndClinic
+
+  else if ((patient_name && patient_name.trim() != '') && from.getTime() && to.getTime() && (clinic_name && clinic_name.trim() != '')) {
+    appointmentsDbService.getAppointmentsByDateAndUserAndClinic(from.toISOString(), to.toISOString(), patient_name, clinic_name, req.session.user.id)
+      .then(result => {
+        if (result.length > 0)
+          renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result });
+        else
+        appointmentsDbService.getAllAppointmentsD(req.session.user.id)
+          .then(function (result) {
+            renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result, error: 'No results found for the desired clinic and patient between the given dates.' });
+            console.log(result);
+          })
+      })
+  }
+
+    //getAllAppointments,
+
+  else
+    appointmentsDbService.getAllAppointmentsD(req.session.user.id)
+      .then(function (result) {
+        renderView(res, { user: req.session.user, fullName: req.session.user.fName + ' ' + req.session.user.lName, appointments: result, error: "All the fields are empty. " });
+        console.log(result);
+      })
   });
 
-router.post('/filter/status', function (req, res, next) {
-  const { appointmentid, stat } = req.body;
-  for (appointment in appointments)
-  {
-    if (appointment == appointmentid)
-    {
-      appointments[appointment][6] = stat;
-      break;
-    }
-  }
-  res.send({
-    appointments
-  })
-});
+
 
 
 function renderView(res, config) {
     config.clinics = doctorClinics;
-    config.appointments = [];
+    //config.appointments = [];
     res.render('doctor/history', config);
 }
 

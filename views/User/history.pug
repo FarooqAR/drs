@@ -1,17 +1,19 @@
 extends ../common/layout
 
 block style_links
-  link(rel='stylesheet', href='/stylesheets/doctor/history.css')
+  link(rel='stylesheet', href='/stylesheets/user/history.css')
 
+block scripts
+  script(src="/javascripts/user/history.js")
 
 block content
     div#appoint_history_container.container
-        h2 Dr. #{fullName}
+        h2 #{fullName}
         hr
         include ../common/alert.pug
         form#form_search(action="/history", method="post")
             div.container_flex
-                input.flex_2(
+                input.flex_2#clinname(
                     type="text"
                     list='doctor_clinics_list', 
                     class="form-control",
@@ -23,8 +25,8 @@ block content
                 input.flex_2(
                     type="text" 
                     class="form-control",
-                    name="patient_name", 
-                    placeholder="Patient Name") 
+                    name="doctor_name", 
+                    placeholder="Doctor Name") 
                 input(
                     type='submit'
                     class='btn btn-primary'
@@ -61,10 +63,9 @@ block content
         div.history_list
             for appointment in appointments
                 div.appointment
-                    -console.log(appointment);
                     div.container_flex.my_div
                         div.flex_1 
-                            strong #{appointment.userfullname}
+                            strong Dr. #{appointment.docfullname}
                         div.flex_1.text_right
                             strong Date: 
                             span #{appointment.from.toDateString()}

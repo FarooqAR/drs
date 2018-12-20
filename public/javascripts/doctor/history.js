@@ -74,7 +74,7 @@ function renderAppointments(appointments) {
                 <div class="flex_1 text_right"><strong>From: </strong><span>${from}</span><strong>To: </strong><span>${to}</span></div>
             </div>
             <div class="container_flex">
-                <div class="flex_1"><strong>Rating: </strong><span>${rating}/10</span></div>
+                <div class="flex_1"><strong>They rated you: </strong><span>${rating}/10</span></div>
                 <div class="flex_2 text_right"><a href="/appointments/${id}"><button class="btn btn-primary">Details</button></a></div>
             </div>
         </div>
@@ -82,8 +82,10 @@ function renderAppointments(appointments) {
     });
     appointList.innerHTML = html; // render qualifications on screen
 }
+/*
 
 formSearch.addEventListener('submit', function (event) {
+    
     event.preventDefault();
     const data = serialize(
         formSearch,
@@ -164,7 +166,7 @@ formSearch.addEventListener('submit', function (event) {
         filteredHistoryIsRendered = true;
     }
 });
-
+*/
 sortBy.addEventListener("change", function (event) {
     const order = sortBy.value; // 1= ascending, 2 = descending
     let tempList = [];

@@ -23,7 +23,7 @@ const userDashboardRouter = require('./routes/user/dashboard');
 const doctorsForUsersRouter = require('./routes/user/doctors');
 const clinicsForUsersRouter = require('./routes/user/clinics');
 const userSettingsRouter = require('./routes/user/settings');
-
+const userHistoryRouter = require('./routes/user/history');
 const app = express();
 
 db.authenticate()
@@ -66,7 +66,7 @@ app.use('/signup', signupRouter);
 app.use(function (req, res, next) {
   if (req.session.user)
     return next();
-
+    //agar logged in hai tou agey wale route access karega
   res.redirect('/login/user');
 });
 
@@ -104,7 +104,7 @@ app.use('/doctors', function (req, res, next) {
 app.use('/history', function (req, res, next) {
   if (req.session.user && req.session.user.type == 'doctor')
     return doctorHistoryRouter(req, res, next)
-  next()
+  userHistoryRouter(req, res, next);
 });
 
 app.use('/qualification', qualRouter);
