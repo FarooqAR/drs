@@ -61,7 +61,7 @@ router.post('/clinics', function (req, res, next) {
   else if (!clinic && !role && !date){  // filtered by doctor
     clinicsDbService.getDoctorClinics(getDoctorId(doctor))
     .then (function (result){
-      res.send(sendDoctorClinics(result));
+      res.send(sendClinic(result));
     })
   }
 
@@ -121,9 +121,11 @@ router.post('/clinics', function (req, res, next) {
 
 function createAllClinincsList(result){
     allClinics = []; // empty out if populated
+    console.log(result)
     for (clinic in result){
-      allClinics.push([result[clinic].name, result[clinic].lat, result[clinic].long])
+      allClinics.push([result[clinic].name, result[clinic].lat, result[clinic].long, result[clinic].clinicId])
     }
+    console.log(allClinics);
 }
 
 function createAllDoctorsList(result){
@@ -148,18 +150,10 @@ function createAllRolesList(result){
   }
 }
 
-function sendClinic(clinic){
+function sendClinic(result){
   var list = [];
-  for (loc in clinic){
-    list.push([clinic[loc].name, clinic[loc].lat, clinic[loc].long]);
-  }
-  return list;
-}
-
-function sendDoctorClinics(doctor){
-  var list = [];
-  for (clinic in doctor){
-    list.push([doctor[clinic].name, doctor[clinic].lat, doctor[clinic].long]);
+  for (loc in result){
+    list.push([result[loc].name, result[loc].lat, result[loc].long, result[loc].clinicId]);
   }
   return list;
 }
@@ -177,7 +171,7 @@ function sendFILTEREDClinics(result){
       }
     }
     infoText += ' at '+clinic;
-    list.push([infoText, result[i].lat, result[i].long]);
+    list.push([infoText, result[i].lat, result[i].long, result[i].clinicId]);
   }
   return list;
 }
