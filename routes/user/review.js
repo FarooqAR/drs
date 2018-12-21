@@ -20,7 +20,7 @@ router.post('/create', function (req, res, next) {
       else
         res.send({ error: 'Could not update appointment' });
     })
-    .catch(e => next(e));
+    .catch(e => res.send({ error: e }));
 
 });
 

@@ -19,7 +19,7 @@ const appointGetHandler = async function (req, res, next) {
     appointment.from = utils.formatAMPM(from);
     appointment.to = utils.formatAMPM(to);
     appointment.date = from.toDateString();
-    appointment.isPast = to.getTime() < Date.now();
+    appointment.isPast = to.getTime() < Date.now() || appointment.status == 'done' || appointment.status == 'rejected' ;
     appointment.appointmentId = appointmentId;
     res.render(`${req.session.user.type}/appoint_details`, {
       appointment,
