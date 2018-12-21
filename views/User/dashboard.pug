@@ -68,13 +68,16 @@ block content
                     name = "filter_date"
                     data-toggle="collapse" 
                     data-target="#filter_date") 
-            | By Date
+            | By Day
       div#filter_date.collapse
         input#options(
-                    type='date',
-                    name='select_date',
+                    list='days_list',
+                    name='select_day',
                     class="form-control",
-                    placeholder="MM/DD/YY" )
+                    placeholder="Day" )
+        datalist#days_list
+                    for day in days
+                        option(value=day)
 
     input(type = "submit"
           class = "btn btn-primary"

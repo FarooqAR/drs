@@ -13,7 +13,7 @@ var clinics_checkboxCLICKED = false;
 const doctors_input = document.querySelector('input[name=search_doctors]');
 const roles_input = document.querySelector('input[name=search_roles]');
 const clinics_input = document.querySelector('input[name=search_clinics]');
-const date_input = document.querySelector('input[name=select_date]');
+const date_input = document.querySelector('input[name=select_day]');
 
 var alertHidden = true;
 

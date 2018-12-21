@@ -44,16 +44,6 @@ block content
                     name="date_to"
                     class="form-control"
                     placeholder="To") 
-        div.container_flex.text_right
-            div.flex_3
-            select#sort_by_order.flex_1(
-                type="text" 
-                class="form-control"
-                name="sort_by")
-                - var opt = 'Ascending'
-                option(value="-1", disabled) Sort By: 
-                option(value=1) Ascending
-                option(value=2) Descending
         div.history_list
             if appointments.length == 0
                 div.text_centered Nothing to show

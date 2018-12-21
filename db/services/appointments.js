@@ -7,15 +7,14 @@ const Appointment = require('../models/Appointment');
 function getAllAppointments(id){
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
-        FROM Appointments, Doctors, Clinics, Users, Reviews
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
+        FROM Appointments, Doctors, Clinics, Users
         WHERE [status] in ('rejected', 'done')
         AND Doctors.doctorId = Appointments.AppointDoctorId
         AND Appointments.AppointUserId = ${id}
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
-        AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId`, {type : Sequelize.QueryTypes.SELECT}
+        AND doctorId = AppointDoctorId`, {type : Sequelize.QueryTypes.SELECT}
     );
 }
 
@@ -25,16 +24,15 @@ function getAllAppointments(id){
 function getAppointsByClinic(clinic, userid){
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
-        FROM Appointments, Doctors, Clinics, Users, Reviews
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
+        FROM Appointments, Doctors, Clinics, Users
         WHERE Users.userId=${userid} 
         AND Clinics.name LIKE '%${clinic}%'
         AND [status] in ('rejected', 'done') 
         AND Doctors.doctorId = Appointments.AppointDoctorId
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
-        AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId`,{type : Sequelize.QueryTypes.SELECT}
+        AND doctorId = AppointDoctorId`,{type : Sequelize.QueryTypes.SELECT}
     );
 }
 
@@ -43,16 +41,15 @@ function getAppointsByClinic(clinic, userid){
 function getAppointsByDoctorname(doctorname, userid) {
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
-        FROM Appointments, Doctors, Clinics, Users, Reviews
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
+        FROM Appointments, Doctors, Clinics, Users
         WHERE (Doctors.fName+' '+Doctors.lName) LIKE '%${doctorname}%' 
         AND [status] in ('rejected', 'done') 
         AND Users.userId=${userid}
         AND Doctors.doctorId = Appointments.AppointDoctorId
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
-        AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId`,{type : Sequelize.QueryTypes.SELECT}
+        AND doctorId = AppointDoctorId`,{type : Sequelize.QueryTypes.SELECT}
     );
 }
 
@@ -61,8 +58,8 @@ function getAppointsByDoctorname(doctorname, userid) {
 function getAppointmentsByDate(fromdate, todate, userid){
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
-        FROM Appointments, Doctors, Clinics, Users, Reviews
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
+        FROM Appointments, Doctors, Clinics, Users
         WHERE [from] >= '${fromdate}' AND [from] <= '${todate}'
         AND [status] in ('rejected', 'done') 
         AND Users.userId=${userid} 
@@ -70,7 +67,6 @@ function getAppointmentsByDate(fromdate, todate, userid){
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
         AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId
         `, {type : Sequelize.QueryTypes.SELECT}
     );
 }
@@ -80,7 +76,7 @@ function getAppointmentsByDate(fromdate, todate, userid){
 function getAppointsByDoctornameAndClinic(doctorname, clinic,userid){
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
         FROM Appointments, Doctors, Clinics, Users, Reviews
         WHERE (Doctors.fName+' '+Doctors.lName) LIKE '%${doctorname}%' 
         AND Clinics.name LIKE '%${clinic}%'
@@ -89,8 +85,7 @@ function getAppointsByDoctornameAndClinic(doctorname, clinic,userid){
         AND Doctors.doctorId = Appointments.AppointDoctorId
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
-        AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId`, {type : Sequelize.QueryTypes.SELECT}
+        AND doctorId = AppointDoctorId`, {type : Sequelize.QueryTypes.SELECT}
     );
 }
 
@@ -99,7 +94,7 @@ function getAppointsByDoctornameAndClinic(doctorname, clinic,userid){
 function getAppointmentsByDateAndClinic(fromdate, todate, clinic, userid){
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
         FROM Appointments, Doctors, Clinics, Users, Reviews
         WHERE [from] >= '${fromdate}' AND [from] <= '${todate}'
         AND Clinics.name LIKE '%${clinic}'
@@ -109,7 +104,6 @@ function getAppointmentsByDateAndClinic(fromdate, todate, clinic, userid){
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
         AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId
         `, {type : Sequelize.QueryTypes.SELECT}
     );
 }
@@ -119,8 +113,8 @@ function getAppointmentsByDateAndClinic(fromdate, todate, clinic, userid){
 function getAppointmentsByDateAndDoctor(fromdate, todate, doctorname, userid){
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
-        FROM Appointments, Doctors, Clinics, Users, Reviews
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
+        FROM Appointments, Doctors, Clinics, Users
         WHERE [from] >= '${fromdate}' AND [from] <= '${todate}'
         AND (Doctors.fName+' '+Doctors.lName) LIKE '%${doctorname}%' 
         AND [status] in ('rejected', 'done') 
@@ -129,7 +123,6 @@ function getAppointmentsByDateAndDoctor(fromdate, todate, doctorname, userid){
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
         AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId
         `, {type : Sequelize.QueryTypes.SELECT}
     );
 }
@@ -139,8 +132,8 @@ function getAppointmentsByDateAndDoctor(fromdate, todate, doctorname, userid){
 function getAppointmentsByDateAndDoctorAndClinic(fromdate, todate, doctor, clinic, userid){
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
-        FROM Appointments, Doctors, Clinics, Users, Reviews
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
+        FROM Appointments, Doctors, Clinics, Users
         WHERE [from] >= '${fromdate}' AND [from] <= '${todate}'
         AND (Doctors.fName+' '+Doctors.lName) LIKE '%${doctor}%'
         AND Clinics.name LIKE '%${clinic}'
@@ -150,7 +143,6 @@ function getAppointmentsByDateAndDoctorAndClinic(fromdate, todate, doctor, clini
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
         AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId
         `, {type : Sequelize.QueryTypes.SELECT}
     );
 }
@@ -160,15 +152,14 @@ function getAppointmentsByDateAndDoctorAndClinic(fromdate, todate, doctor, clini
 function getAllAppointmentsD(id){
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
-        FROM Appointments, Doctors, Clinics, Users, Reviews
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
+        FROM Appointments, Doctors, Clinics, Users
         WHERE [status] in ('rejected', 'done')
         AND Users.userId = Appointments.AppointUserId
         AND Appointments.AppointDoctorId = ${id}
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
-        AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId`, {type : Sequelize.QueryTypes.SELECT}
+        AND doctorId = AppointDoctorId`, {type : Sequelize.QueryTypes.SELECT}
     );
 }
 
@@ -177,16 +168,15 @@ function getAllAppointmentsD(id){
 function getAppointsByClinicD(clinic, doctorId){
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
-        FROM Appointments, Doctors, Clinics, Users, Reviews
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
+        FROM Appointments, Doctors, Clinics, Users
         WHERE Doctors.doctorId=${doctorId} 
         AND Clinics.name LIKE '%${clinic}%'
         AND [status] in ('rejected', 'done') 
         AND Users.userId = Appointments.AppointUserId
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
-        AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId`,{type : Sequelize.QueryTypes.SELECT}
+        AND doctorId = AppointDoctorId`,{type : Sequelize.QueryTypes.SELECT}
     );
 }
 
@@ -195,16 +185,15 @@ function getAppointsByClinicD(clinic, doctorId){
 function getAppointsByUsername(username, userId) {
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
-        FROM Appointments, Doctors, Clinics, Users, Reviews
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
+        FROM Appointments, Doctors, Clinics, Users
         WHERE (Users.fName+' '+Users.lName) LIKE '%${username}%' 
         AND [status] in ('rejected', 'done') 
         AND Doctors.doctorId=${userId}
         AND Users.userId = Appointments.AppointUserId
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
-        AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId`,{type : Sequelize.QueryTypes.SELECT}
+        AND doctorId = AppointDoctorId`,{type : Sequelize.QueryTypes.SELECT}
     );
 }
 
@@ -213,8 +202,8 @@ function getAppointsByUsername(username, userId) {
 function getAppointmentsByDateD(fromdate, todate, userId){
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
-        FROM Appointments, Doctors, Clinics, Users, Reviews
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
+        FROM Appointments, Doctors, Clinics, Users
         WHERE [from] >= '${fromdate}' AND [from] <= '${todate}'
         AND [status] in ('rejected', 'done') 
         AND Doctors.doctorId=${userId}
@@ -222,7 +211,6 @@ function getAppointmentsByDateD(fromdate, todate, userId){
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
         AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId
         `,{type : Sequelize.QueryTypes.SELECT}
     );
 }
@@ -232,8 +220,8 @@ function getAppointmentsByDateD(fromdate, todate, userId){
 function getAppointsByUsernameAndClinic(doctorname, clinic,userId){
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
-        FROM Appointments, Doctors, Clinics, Users, Reviews
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
+        FROM Appointments, Doctors, Clinics, Users
         WHERE (Users.fName+' '+Users.lName) LIKE '%${doctorname}%' 
         AND Clinics.name LIKE '%${clinic}%'
         AND [status] in ('rejected', 'done') 
@@ -241,8 +229,7 @@ function getAppointsByUsernameAndClinic(doctorname, clinic,userId){
         AND Users.userId = Appointments.AppointUserId
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
-        AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId`, {type : Sequelize.QueryTypes.SELECT}
+        AND doctorId = AppointDoctorId`, {type : Sequelize.QueryTypes.SELECT}
     );
 }
 
@@ -251,8 +238,8 @@ function getAppointsByUsernameAndClinic(doctorname, clinic,userId){
 function getAppointmentsByDateAndClinicD(fromdate, todate, clinic, userId){
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
-        FROM Appointments, Doctors, Clinics, Users, Reviews
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
+        FROM Appointments, Doctors, Clinics, Users
         WHERE [from] >= '${fromdate}' AND [from] <= '${todate}'
         AND Clinics.name LIKE '%${clinic}'
         AND [status] in ('rejected', 'done') 
@@ -261,7 +248,6 @@ function getAppointmentsByDateAndClinicD(fromdate, todate, clinic, userId){
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
         AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId
         `,{type : Sequelize.QueryTypes.SELECT}
     );
 }
@@ -272,8 +258,8 @@ function getAppointmentsByDateAndClinicD(fromdate, todate, clinic, userId){
 function getAppointmentsByDateAndUser(fromdate, todate, doctorname, userId){
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
-        FROM Appointments, Doctors, Clinics, Users, Reviews
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
+        FROM Appointments, Doctors, Clinics, Users
         WHERE [from] >= '${fromdate}' AND [from] <= '${todate}'
         WHERE (Users.fName+' '+Users.lName) LIKE '%${doctorname}%' 
         AND [status] in ('rejected', 'done') 
@@ -282,7 +268,6 @@ function getAppointmentsByDateAndUser(fromdate, todate, doctorname, userId){
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
         AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId
         `,{type : Sequelize.QueryTypes.SELECT}
     );
 }
@@ -293,8 +278,8 @@ function getAppointmentsByDateAndUser(fromdate, todate, doctorname, userId){
 function getAppointmentsByDateAndUserAndClinic(fromdate, todate, doctor, clinic, userId){
     return db.query(
         `SELECT appointmentId as id, Clinics.name as clinic,(Users.fName+' '+Users.lName) as userfullname,
-        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to], Reviews.rating as rating
-        FROM Appointments, Doctors, Clinics, Users, Reviews
+        (Doctors.fName+' '+Doctors.lName) as docfullname,[from],[to]
+        FROM Appointments, Doctors, Clinics, Users
         WHERE [from] >= '${fromdate}' AND [from] <= '${todate}'
         AND (Users.fName+' '+Users.lName) LIKE '%${doctor}%'
         AND Clinics.name LIKE '%${clinic}'
@@ -304,7 +289,6 @@ function getAppointmentsByDateAndUserAndClinic(fromdate, todate, doctor, clinic,
         AND Clinics.clinicId = AppointClinicId
         AND userId = AppointUserId
         AND doctorId = AppointDoctorId
-        AND reviewId = AppointReviewId
         `,{type : Sequelize.QueryTypes.SELECT}
     );
 }

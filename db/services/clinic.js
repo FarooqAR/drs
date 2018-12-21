@@ -42,7 +42,7 @@ function getRoleClinics(role){
   WHERE roleId = DoctorRoleId
       and doctors.doctorid = doctorclinics.DoctorId
       and Clinics.clinicId = DoctorClinics.ClinicId
-      and Roles.name = '${role}'`, {type:Sequelize.QueryTypes.SELECT});
+      and Roles.name like '%${role}%'`, {type:Sequelize.QueryTypes.SELECT});
 }
 
 function getClinicDoctors(clinicId) {
@@ -67,8 +67,8 @@ function getRole_ClinicClinics(role, clinic){
   WHERE DoctorClinics.DoctorId = Doctors.doctorId
       and DoctorRoleId = roleId
       and DoctorClinics.ClinicId = Clinics.clinicId
-      and Clinics.name = '${clinic}'
-      and Roles.name = '${role}'`, {type:Sequelize.QueryTypes.SELECT});
+      and Clinics.name like '%${clinic}%'
+      and Roles.name like '%${role}%'`, {type:Sequelize.QueryTypes.SELECT});
 }
 
 function getRole_DayClinics(role, day){
@@ -78,7 +78,7 @@ function getRole_DayClinics(role, day){
       and doctorClinicId = ClinicDoctorId
       and DoctorRoleId = roleId
       and DoctorClinics.ClinicId = Clinics.clinicId
-      and Roles.name = '${role}'
+      and Roles.name like '%${role}%
       and [day] = '${day}'`, {type:Sequelize.QueryTypes.SELECT});
 }
 
@@ -89,7 +89,7 @@ function getClinic_DayClinics(day, clinic){
       and doctorClinicId = ClinicDoctorId
       and DoctorRoleId = roleId
       and DoctorClinics.ClinicId = Clinics.clinicId
-      and Clinics.name = '${clinic}'
+      and Clinics.name like '%${clinic}%'
       and [day] = '${day}'`, {type:Sequelize.QueryTypes.SELECT});
 }
 
@@ -110,8 +110,8 @@ function getRole_Clinic_DayClinics(role, clinic, day){
       and doctorClinicId = ClinicDoctorId
       and DoctorRoleId = roleId
       and DoctorClinics.ClinicId = Clinics.clinicId
-      and Clinics.name = '${clinic}'
-      and Roles.name = '${role}'
+      and Clinics.name like '%${clinic}%'
+      and Roles.name like '%${role}%'
       and [day] = '${day}'
   `, {type:Sequelize.QueryTypes.SELECT});
 }
